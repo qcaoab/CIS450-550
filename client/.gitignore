@@ -1,0 +1,10 @@
+# build output
+.next
+dist
+
+# dependencies
+node_modules
+yarn.lock
+
+# other
+.DS_Store
