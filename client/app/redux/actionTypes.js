@@ -1,0 +1,22 @@
+export const ADD_TODO = "ADD_TODO";
+export const TOGGLE_TODO = "TOGGLE_TODO";
+export const SET_FILTER = "SET_FILTER";
+
+export const SEARCH = {
+  UPDATE_QUERY: "SEARCH.UPDATE_QUERY",
+  UPDATE_RESULTS: "SEARCH.UPDATE_RESULTS",
+  UPDATE_FILTERS: "SEARCH.UPDATE_FILTERS"
+};
+
+export const FAVORITE = {
+  ADD: "FAVORITE.ADD",
+  REMOVE: "FAVORITE.REMOVE",
+  UPDATE: "FAVORITE.UPDATE"
+};
+
+export const BOOK = {
+  UPDATE: "BOOK.UPDATE"
+};
+export const AUTHOR = {
+  UPDATE: "AUTHOR.UPDATE"
+};
