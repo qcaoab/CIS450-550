@@ -8,7 +8,6 @@ class Index extends React.Component {
     return (
       <Container>
         <h1 className="display-4 mb-4 mt-2">NextJs Starter</h1>
-
         <p className="mb-5">
           Welcome to the <b>&quot;Airframe&quot;</b> Admin Dashboard Theme based
           on{" "}
