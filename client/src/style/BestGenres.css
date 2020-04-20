@@ -1,10 +1,11 @@
-.movies-container {
+.books-container {
   display: flex;
   flex-flow: column wrap;
   margin-top: 10px;
 }
 
-.movies-container .movie, .movies-container .movieResults {
+.books-container .book,
+.books-container .bookResults {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -12,6 +13,11 @@
   padding: 0 10px;
 }
 
-.movie .header, .movieResults .title, .movieResults .genre, .movieResults .votes, .movieResults .year, .movieResults .rating {
+.book .header,
+.bookResults .title,
+.bookResults .genre,
+.bookResults .votes,
+.bookResults .year,
+.bookResults .rating {
   flex: 1 0 25%;
 }

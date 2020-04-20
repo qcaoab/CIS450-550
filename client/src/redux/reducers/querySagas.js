@@ -1,56 +1,56 @@
 import { put, takeLatest, all } from "redux-saga/effects";
 import { QUERY } from "../actionTypes";
 function* executeQuery1() {
-  const json = yield fetch(`http://localhost:8081/randomMovies`, {
-    method: "GET",
+  const json = yield fetch(`http://localhost:8081/randombooks`, {
+    method: "GET"
   }).then((response) => response.json());
   yield put({ type: "UPDATE_RESULTS", json: json.articles });
 }
 function* executeQuery2() {
-  const json = yield fetch(`http://localhost:8081/randomMovies`, {
-    method: "GET",
+  const json = yield fetch(`http://localhost:8081/randombooks`, {
+    method: "GET"
   }).then((response) => response.json());
   yield put({ type: "UPDATE_RESULTS", json: json.articles });
 }
 function* executeQuery3() {
-  const json = yield fetch(`http://localhost:8081/randomMovies`, {
-    method: "GET",
+  const json = yield fetch(`http://localhost:8081/randombooks`, {
+    method: "GET"
   }).then((response) => response.json());
   yield put({ type: "UPDATE_RESULTS", json: json.articles });
 }
 function* executeQuery4() {
-  const json = yield fetch(`http://localhost:8081/randomMovies`, {
-    method: "GET",
+  const json = yield fetch(`http://localhost:8081/randombooks`, {
+    method: "GET"
   }).then((response) => response.json());
   yield put({ type: "UPDATE_RESULTS", json: json.articles });
 }
 function* executeQuery5() {
-  const json = yield fetch(`http://localhost:8081/randomMovies`, {
-    method: "GET",
+  const json = yield fetch(`http://localhost:8081/randombooks`, {
+    method: "GET"
   }).then((response) => response.json());
   yield put({ type: "UPDATE_RESULTS", json: json.articles });
 }
 function* executeQuery6() {
-  const json = yield fetch(`http://localhost:8081/randomMovies`, {
-    method: "GET",
+  const json = yield fetch(`http://localhost:8081/randombooks`, {
+    method: "GET"
   }).then((response) => response.json());
   yield put({ type: "UPDATE_RESULTS", json: json.articles });
 }
 function* executeQuery7() {
-  const json = yield fetch(`http://localhost:8081/randomMovies`, {
-    method: "GET",
+  const json = yield fetch(`http://localhost:8081/randombooks`, {
+    method: "GET"
   }).then((response) => response.json());
   yield put({ type: "UPDATE_RESULTS", json: json.articles });
 }
 function* executeQuery8() {
-  const json = yield fetch(`http://localhost:8081/randomMovies`, {
-    method: "GET",
+  const json = yield fetch(`http://localhost:8081/randombooks`, {
+    method: "GET"
   }).then((response) => response.json());
   yield put({ type: "UPDATE_RESULTS", json: json.articles });
 }
 function* executeQuery9() {
-  const json = yield fetch(`http://localhost:8081/randomMovies`, {
-    method: "GET",
+  const json = yield fetch(`http://localhost:8081/randombooks`, {
+    method: "GET"
   }).then((response) => response.json());
   yield put({ type: "UPDATE_RESULTS", json: json.articles });
 }
@@ -92,6 +92,6 @@ export default function* rootSaga() {
     actionWatcher6(),
     actionWatcher7(),
     actionWatcher8(),
-    actionWatcher9(),
+    actionWatcher9()
   ]);
 }

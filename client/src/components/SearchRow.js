@@ -8,7 +8,7 @@ export default class SearchRow extends React.Component {
 
   render() {
     return (
-      <div className="movieResults">
+      <div className="bookResults">
         <div className="title">{this.props.title}</div>
         <div className="id">{this.props.id}</div>
         <div className="rating">{this.props.rating}</div>

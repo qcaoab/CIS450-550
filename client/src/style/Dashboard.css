@@ -18,17 +18,21 @@
   background-color: #ddd;
 }
 
-.movies-container .movies-header, .results-container .movie {
+.books-container .books-header,
+.results-container .book {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
   height: 40px;
 }
 
-.movie .title, .movies-header .header-lg {
+.book .title,
+.books-header .header-lg {
   flex: 1 0 50%;
 }
 
-.movies-header .header, .movie .rating, .movie .votes {
+.books-header .header,
+.book .rating,
+.book .votes {
   flex: 1 0 25%;
 }

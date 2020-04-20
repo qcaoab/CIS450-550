@@ -24,14 +24,14 @@ export default class BestGenre extends React.Component {
       method: "GET"
     })
       .then(
-        res => {
+        (res) => {
           return res.json();
         },
-        err => {
+        (err) => {
           console.log(err);
         }
       )
-      .then(decadeList => {
+      .then((decadeList) => {
         this.setState({
           decades: decadeList.map((decadeObj, i) => {
             let decade = decadeObj.decade;
@@ -56,14 +56,14 @@ export default class BestGenre extends React.Component {
       }
     )
       .then(
-        res => {
+        (res) => {
           return res.json();
         },
-        err => {
+        (err) => {
           console.log(err);
         }
       )
-      .then(bestGenreList => {
+      .then((bestGenreList) => {
         if (!bestGenreList) return;
         let genreDivs = bestGenreList.map((genreObj, i) => (
           <BestGenreRow genre={genreObj.genre} rating={genreObj.avg_rating} />
@@ -102,8 +102,8 @@ export default class BestGenre extends React.Component {
             </div>
           </div>
           <div className="jumbotron">
-            <div className="movies-container">
-              <div className="movie">
+            <div className="books-container">
+              <div className="book">
                 <div className="header">
                   <strong>Genre</strong>
                 </div>
@@ -111,7 +111,7 @@ export default class BestGenre extends React.Component {
                   <strong>Average Rating</strong>
                 </div>
               </div>
-              <div className="movies-container" id="results">
+              <div className="books-container" id="results">
                 {this.state.genres}
               </div>
             </div>
@@ -121,4 +121,3 @@ export default class BestGenre extends React.Component {
     );
   }
 }
-

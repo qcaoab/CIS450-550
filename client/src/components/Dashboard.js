@@ -3,20 +3,20 @@ import "../style/Dashboard.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import PageNavbar from "./PageNavbar";
 import GenreButton from "./GenreButton";
-import DashboardMovieRow from "./DashboardMovieRow";
+import DashboardbookRow from "./DashboardbookRow";
 
 export default class Dashboard extends React.Component {
   constructor(props) {
     super(props);
 
     // The state maintained by this React Component. This component maintains the list of genres,
-    // and a list of movies for a specified genre.
+    // and a list of books for a specified genre.
     this.state = {
       genres: [],
-      movies: []
+      books: []
     };
 
-    this.showMovies = this.showMovies.bind(this);
+    this.showbooks = this.showbooks.bind(this);
   }
 
   // React function that is called when the page load.
@@ -26,24 +26,24 @@ export default class Dashboard extends React.Component {
       method: "GET" // The type of HTTP request.
     })
       .then(
-        res => {
+        (res) => {
           // Convert the response data to a JSON.
           return res.json();
         },
-        err => {
+        (err) => {
           // Print the error if there is one.
           console.log(err);
         }
       )
       .then(
-        genreList => {
+        (genreList) => {
           if (!genreList) return;
           // Map each genreObj in genreList to an HTML element:
-          // A button which triggers the showMovies function for each genre.
+          // A button which triggers the showbooks function for each genre.
           let genreDivs = genreList.map((genreObj, i) => (
             <GenreButton
               id={"button-" + genreObj.genre}
-              onClick={() => this.showMovies(genreObj.genre)}
+              onClick={() => this.showbooks(genreObj.genre)}
               genre={genreObj.genre}
             />
           ));
@@ -53,7 +53,7 @@ export default class Dashboard extends React.Component {
             genres: genreDivs
           });
         },
-        err => {
+        (err) => {
           // Print the error if there is one.
           console.log(err);
         }
@@ -61,30 +61,30 @@ export default class Dashboard extends React.Component {
   }
 
   /* ---- Q1b (Dashboard) ---- */
-  /* Set this.state.movies to a list of <DashboardMovieRow />'s. */
-  showMovies(genre) {
+  /* Set this.state.books to a list of <DashboardbookRow />'s. */
+  showbooks(genre) {
     fetch(`http://localhost:8081/genres/${genre}`, {
       method: "GET"
     })
       .then(
-        res => {
+        (res) => {
           return res.json();
         },
-        err => {
+        (err) => {
           console.log(err);
         }
       )
-      .then(topMovieList => {
-        if (!topMovieList) return;
-        let movieDivs = topMovieList.map((movieObj, i) => (
-          <DashboardMovieRow
-            title={movieObj.title}
-            rating={movieObj.rating}
-            votes={movieObj.vote_count}
+      .then((topbookList) => {
+        if (!topbookList) return;
+        let bookDivs = topbookList.map((bookObj, i) => (
+          <DashboardbookRow
+            title={bookObj.title}
+            rating={bookObj.rating}
+            votes={bookObj.vote_count}
           />
         ));
         this.setState({
-          movies: movieDivs
+          books: bookDivs
         });
       });
   }
@@ -95,16 +95,16 @@ export default class Dashboard extends React.Component {
         <PageNavbar active="dashboard" />
 
         <br></br>
-        <div className="container movies-container">
+        <div className="container books-container">
           <div className="jumbotron">
-            <div className="h5">Top Movies</div>
+            <div className="h5">Top books</div>
             <div className="genres-container">{this.state.genres}</div>
           </div>
 
           <br></br>
           <div className="jumbotron">
-            <div className="movies-container">
-              <div className="movies-header">
+            <div className="books-container">
+              <div className="books-header">
                 <div className="header-lg">
                   <strong>Title</strong>
                 </div>
@@ -116,7 +116,7 @@ export default class Dashboard extends React.Component {
                 </div>
               </div>
               <div className="results-container" id="results">
-                {this.state.movies}
+                {this.state.books}
               </div>
             </div>
           </div>
@@ -125,4 +125,3 @@ export default class Dashboard extends React.Component {
     );
   }
 }
-

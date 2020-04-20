@@ -5,6 +5,7 @@ import "../style/Search.css";
 import { connect } from "react-redux";
 import { updateSearchQuery } from "../redux/actions";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { SearchResultsCard } from "./SearchResultCard";
 
 class _Search extends React.Component {
   render() {
@@ -19,13 +20,13 @@ class _Search extends React.Component {
             <div className="input-container">
               <input
                 type="text"
-                placeholder="Enter Movie Name"
+                placeholder="Enter book Name"
                 onChange={this.props.updateSearchQuery}
-                id="movieName"
-                className="movie-input"
+                id="bookName"
+                className="book-input"
               />
               <button
-                id="submitMovieBtn"
+                id="submitbookBtn"
                 className="submit-btn"
                 onClick={this.props.submitSearch}
               >
@@ -33,13 +34,16 @@ class _Search extends React.Component {
               </button>
             </div>
             <div className="header-container">
-              <div className="h6">You may like ...</div>
+              {this.props.search.results &&
+                this.props.search.results.map((obj) => (
+                  <SearchResultsCard {...obj} />
+                ))}
               <div className="headers">
                 <div className="header">
                   <strong>Title</strong>
                 </div>
                 <div className="header">
-                  <strong>Movie ID</strong>
+                  <strong>book ID</strong>
                 </div>
                 <div className="header">
                   <strong>Rating</strong>
