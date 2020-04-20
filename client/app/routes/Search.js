@@ -10,7 +10,7 @@ import {
   InputGroupAddon,
   Nav,
   CustomInput,
-  Badge
+  Badge,
 } from "../components";
 import faker from "faker/locale/en_US";
 import { connect } from "react-redux";
@@ -18,7 +18,6 @@ import { HeaderMain } from "./components/HeaderMain";
 import { SearchResultsLeftNav } from "./components/SearchResults/SearchResultsLeftNav";
 import { SearchResultsHeader } from "./components/SearchResults/SearchResultsHeader";
 import { SearchResultsCard } from "./components/SearchResults/SearchResultsCard";
-import { Paginations } from "./components/Paginations";
 import { UsersResultsCard } from "./components/SearchResults/UsersResultsCard";
 
 class Search extends React.Component {
@@ -41,7 +40,7 @@ class Search extends React.Component {
             <Col lg={9}>
               <SearchResultsHeader />
               {this.props.search.results &&
-                this.props.search.results.map(obj => (
+                this.props.search.results.map((obj) => (
                   <SearchResultsCard {...obj} />
                 ))}
 
@@ -55,7 +54,7 @@ class Search extends React.Component {
                         <UsersResultsCard title="asdf" image_url='https://images.gr-assets.com/books/1348176637m/16037549.jpg'/>
                     </CardColumns> */}
               <div className="d-flex justify-content-center">
-                <Paginations />
+                {/* <Paginations /> */}
               </div>
             </Col>
           </Row>
@@ -66,7 +65,7 @@ class Search extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const { search } = state;
   return { search };
 };

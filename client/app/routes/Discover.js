@@ -38,7 +38,6 @@ const UsersResults = () => (
   <React.Fragment>
     <Container>
       <Row>
-        <Col lg={3}></Col>
         <Col lg={9}>
           <CardColumns>
             <UsersResultsCard />
