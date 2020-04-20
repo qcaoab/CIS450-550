@@ -5,6 +5,7 @@ import Search from "./Search/Search";
 import BestGenres from "./BestGenres";
 import Posters from "./Posters";
 import { BookModal } from "./Book/BookModal";
+import { Discover } from "./Book/Discover";
 export default class App extends React.Component {
   render() {
     return (
@@ -12,7 +13,7 @@ export default class App extends React.Component {
         <BookModal />
         <Router>
           <Switch>
-            <Route exact path="/" render={() => <Dashboard />} />
+            <Route exact path="/discover" render={() => <Discover />} />
             <Route exact path="/dashboard" render={() => <Dashboard />} />
             <Route path="/search" render={() => <Search />} />
             <Route path="/bestgenres" render={() => <BestGenres />} />

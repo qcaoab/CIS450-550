@@ -10,11 +10,11 @@ import { SearchResultsCard } from "./Search/SearchResultCard";
 class _Search extends React.Component {
   render() {
     return (
-      <div className="Search">
+      <div className="Search" max-width="300px">
         <PageNavbar active="search" />
 
         <div className="container search-container">
-          <div className="jumbotron">
+          <div className="jumbotron" >
             <div className="h5">Search</div>
             <br></br>
             <div className="input-container">
