@@ -1,20 +1,20 @@
 import React from "react";
-import PageNavbar from "./PageNavbar";
-import SearchRow from "./Search/SearchRow";
-import "../style/Search.css";
+import PageNavbar from "../PageNavbar";
+import SearchRow from "../Search/SearchRow";
+import "../../style/Search.css";
 import { connect } from "react-redux";
-import { updateSearchQuery } from "../redux/actions";
+import { updateSearchQuery } from "../../redux/actions";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { SearchResultsCard } from "./Search/SearchResultCard";
+import { SearchResultsCard } from "../Search/SearchResultCard";
 
-class _Search extends React.Component {
+class _Authors extends React.Component {
   render() {
     return (
       <div className="Search" max-width="300px">
-        <PageNavbar active="search" />
+        <PageNavbar active="authors" />
 
         <div className="container search-container">
-          <div className="jumbotron" >
+          <div className="jumbotron">
             <div className="h5">Search</div>
             <br></br>
             <div className="input-container">
@@ -65,4 +65,4 @@ const mapStateToProps = (state) => {
   const { search } = state;
   return { search };
 };
-export default connect(mapStateToProps, { updateSearchQuery })(_Search);
+export default connect(mapStateToProps, { updateSearchQuery })(_Authors);

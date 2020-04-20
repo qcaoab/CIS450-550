@@ -8,7 +8,8 @@ import {
   Row,
   Col
 } from "reactstrap";
-
+import "../../style/Hover.css";
+import { BookCarouselRow } from "./BookCarouselRow";
 const items = [
   {
     src:
@@ -73,87 +74,11 @@ export const BookCarousel = (props) => {
           >
             <Row style={{ height: "5%" }}></Row>
             <Row style={{ height: "40%" }}>
-              <Col fg="4">
-                <img
-                  src="https://images.gr-assets.com/books/1348176637m/16037549.jpg"
-                  alt="book image"
-                  style={{
-                    height: "95%",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    display: "block"
-                  }}
-                />
-              </Col>
-              <Col
-                fg="4"
-                justify-content="center"
-                flex-direction="row"
-                align-content="center"
-              >
-                <img
-                  src="https://images.gr-assets.com/books/1348176637m/16037549.jpg"
-                  alt="book image"
-                  style={{
-                    height: "95%",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    display: "block"
-                  }}
-                />
-              </Col>
-              <Col fg="4">
-                <img
-                  src="https://images.gr-assets.com/books/1348176637m/16037549.jpg"
-                  alt="book image"
-                  style={{
-                    height: "95%",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    display: "block"
-                  }}
-                />
-              </Col>
+              <BookCarouselRow />
             </Row>
             <Row style={{ height: "15%" }}></Row>
             <Row style={{ height: "40%" }}>
-              <Col fg="4">
-                <img
-                  src="https://images.gr-assets.com/books/1348176637m/16037549.jpg"
-                  alt="book image"
-                  style={{
-                    height: "95%",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    display: "block"
-                  }}
-                />
-              </Col>
-              <Col fg="4">
-                {" "}
-                <img
-                  src="https://images.gr-assets.com/books/1348176637m/16037549.jpg"
-                  alt="book image"
-                  style={{
-                    height: "95%",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    display: "block"
-                  }}
-                />
-              </Col>
-              <Col fg="4">
-                <img
-                  src="https://images.gr-assets.com/books/1348176637m/16037549.jpg"
-                  alt="book image"
-                  style={{
-                    height: "95%",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    display: "block"
-                  }}
-                />
-              </Col>
+              <BookCarouselRow />
             </Row>
           </div>
         </div>
