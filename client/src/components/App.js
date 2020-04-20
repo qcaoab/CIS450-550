@@ -1,14 +1,15 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Dashboard from "./Dashboard";
-import Search from "./Search";
+import Search from "./Search/Search";
 import BestGenres from "./BestGenres";
 import Posters from "./Posters";
-
+import { BookModal } from "./Book/BookModal";
 export default class App extends React.Component {
   render() {
     return (
       <div className="App">
+        <BookModal />
         <Router>
           <Switch>
             <Route exact path="/" render={() => <Dashboard />} />

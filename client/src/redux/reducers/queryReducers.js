@@ -2,12 +2,11 @@ import { QUERY } from "../actionTypes";
 
 const initialState = {
   results: null,
-  loading: false,
+  loading: false
 };
 
 export default function (state = initialState, action) {
-  console.log(action);
-  switch (action) {
+  switch (action.type) {
     case QUERY.POPULAR_BOOKS:
     case QUERY.BEST_REVIEWS:
     case QUERY.MOST_CONSISTENT_AUTHOR:

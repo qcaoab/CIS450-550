@@ -3,7 +3,7 @@ import "../style/Dashboard.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import PageNavbar from "./PageNavbar";
 import GenreButton from "./GenreButton";
-import DashboardbookRow from "./DashboardbookRow";
+import DashboardbookRow from "./DashboardBookRow";
 
 export default class Dashboard extends React.Component {
   constructor(props) {

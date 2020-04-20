@@ -1,4 +1,5 @@
 import Card from "./Card";
+import InputGroupAddon from "./InputGroupAddon";
 export {
   Alert,
   Badge,
@@ -74,4 +75,5 @@ export {
 } from "reactstrap";
 export {
   Card,
+  InputGroupAddon
 };

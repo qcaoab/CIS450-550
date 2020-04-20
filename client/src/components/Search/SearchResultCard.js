@@ -1,11 +1,12 @@
 import React from "react";
 
-import { Card, CardBody, Row, Col } from "../template";
-
-const SearchResultsCard = (props) => (
+import { Card, CardBody, Row, Col } from "../../template";
+import { connect } from "react-redux";
+import { toggleBookModal } from "../../redux/actions";
+const _SearchResultsCard = (props) => (
   <React.Fragment>
     <Card className="mb-3">
-      <CardBody>
+      <CardBody onClick={props.toggleBookModal}>
         <Row>
           <Col lg={2}>
             <img
@@ -15,7 +16,7 @@ const SearchResultsCard = (props) => (
             />
           </Col>
           <Col lg={10}>
-            <a href="#" className="h5 text-decoration-none">
+            <a className="h5 text-decoration-none">
               {props.title ? props.title : "Book Title"}
             </a>
             <br />
@@ -35,5 +36,6 @@ const SearchResultsCard = (props) => (
     </Card>
   </React.Fragment>
 );
-
-export { SearchResultsCard };
+export const SearchResultsCard = connect(null, { toggleBookModal })(
+  _SearchResultsCard
+);

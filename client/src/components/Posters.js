@@ -1,11 +1,11 @@
 import React from "react";
 import PageNavbar from "./PageNavbar";
-import SearchRow from "./SearchRow";
+import SearchRow from "./Search/SearchRow";
 import "../style/Search.css";
 import { connect } from "react-redux";
 import { updateSearchQuery } from "../redux/actions";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { SearchResultsCard } from "./SearchResultCard";
+import { SearchResultsCard } from "./Search/SearchResultCard";
 
 class _Search extends React.Component {
   render() {
