@@ -4,7 +4,15 @@ import { default_book_info } from "./placeholder";
 const initialState = {
   results: null,
   loading: false,
-  search_results: [default_book_info, default_book_info, default_book_info],
+  search_results: [
+    default_book_info,
+    default_book_info,
+    default_book_info,
+    default_book_info,
+    default_book_info,
+    default_book_info,
+    default_book_info
+  ],
   search_filters: null,
   search_query: null,
   favorites: {
@@ -17,6 +25,7 @@ const initialState = {
 };
 
 export default function (state = initialState, action) {
+  console.log(action);
   switch (action.type) {
     case QUERY.POPULAR_BOOKS:
     case QUERY.BEST_REVIEWS:
@@ -70,7 +79,12 @@ export default function (state = initialState, action) {
           favorites: rest
         };
       }
-
+    case BOOK.UPDATE_SHOW_MODAL:
+      return {
+        ...state,
+        book_modal_info: action.book,
+        book_modal_visible: true
+      };
     case BOOK.SHOW_MODAL:
       return { ...state, book_modal_visible: true };
     case BOOK.HIDE_MODAL:

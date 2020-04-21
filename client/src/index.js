@@ -3,9 +3,13 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./components/App";
 import * as serviceWorker from "./serviceWorker";
-import { store, persistor } from "./redux/store";
+import { store, persistor, sagaMiddleware } from "./redux/store";
+import rootSaga from "./redux/reducers/querySagas";
+
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
+
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <Provider store={store}>

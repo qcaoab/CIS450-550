@@ -3,6 +3,7 @@ import React from "react";
 import { Card, CardBody, Row, Col } from "../../template";
 import { connect } from "react-redux";
 import { toggleBookModal } from "../../redux/actions";
+
 const _SearchResultsCard = (props) => (
   <React.Fragment>
     <Card className="mb-3">
@@ -23,9 +24,10 @@ const _SearchResultsCard = (props) => (
             <div className="mb-2">
               {props.author ? props.author : "Book Author"}
               <span className="mx-2">·</span>
-              Rating: {props.average_rating}/5
+              <span>{props.publication_year}</span>
               <span className="mx-2">·</span>
-              <span>Votes</span>
+              Rating: {props.average_rating}/5
+              {/* <span className="mx-2">·</span> */}
             </div>
             <p className="mb-0">
               {props.description ? props.description : "testing"}

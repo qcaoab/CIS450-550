@@ -3,7 +3,6 @@ import createSagaMiddleware from "redux-saga";
 import rootReducer from "./reducers";
 // import rootReducer from "./reducers/rootReducer";
 import { logger } from "redux-logger";
-import rootSaga from "./reducers/querySagas";
 import storageSession from "redux-persist/lib/storage/session";
 import { persistStore, persistReducer } from "redux-persist";
 import hardSet from "redux-persist/lib/stateReconciler/hardSet";
@@ -22,7 +21,6 @@ const store = createStore(
   applyMiddleware(sagaMiddleware, logger)
 );
 
-sagaMiddleware.run(rootSaga);
 const persistor = persistStore(store);
 
-export { store, persistor };
+export { store, persistor, sagaMiddleware };

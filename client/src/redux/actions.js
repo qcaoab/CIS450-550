@@ -1,4 +1,4 @@
-import { SEARCH, BOOK, FAVORITE } from "./actionTypes";
+import { SEARCH, BOOK, FAVORITE, QUERY } from "./actionTypes";
 
 export const updateSearchQuery = (action) => {
   const search_query = action.target.value;
@@ -32,4 +32,16 @@ export const toggleFavorite = () => {
   return {
     type: BOOK.TOGGLE_FAVORITE
   };
+};
+
+export const updateAndShowBookModal = (book) => {
+  return {
+    type: BOOK.UPDATE_SHOW_MODAL,
+    book
+  };
+};
+
+export const getPopularBooks = () => {
+  console.log(QUERY.POPULAR_BOOKS);
+  return { type: QUERY.POPULAR_BOOKS };
 };

@@ -1,17 +1,23 @@
 import React from "react";
 import { Row, Col } from "reactstrap";
 import "../../style/Hover.css";
-import { toggleBookModal } from "../../redux/actions";
+import { toggleBookModal, updateAndShowBookModal } from "../../redux/actions";
 import { connect } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+
 const _FavoriteCarouselRow = (props) => {
   const num_books = props.data.length;
   return (
     <React.Fragment>
       <Col fg="4">
         {num_books > 0 ? (
-          <div class="img__wrap">
+          <div
+            class="img__wrap"
+            onClick={() =>
+              props.dispatch(updateAndShowBookModal(props.data[1]))
+            }
+          >
             <img
               src={props.data[0].image_url}
               alt={props.data[0].title}
@@ -35,7 +41,9 @@ const _FavoriteCarouselRow = (props) => {
         {num_books > 1 ? (
           <div
             class="img__wrap"
-            onClick={() => props.dispatch(toggleBookModal())}
+            onClick={() =>
+              props.dispatch(updateAndShowBookModal(props.data[1]))
+            }
           >
             <img
               src={props.data[1].image_url}
@@ -58,7 +66,12 @@ const _FavoriteCarouselRow = (props) => {
       </Col>
       <Col fg="4">
         {num_books > 2 ? (
-          <div class="img__wrap">
+          <div
+            class="img__wrap"
+            onClick={() =>
+              props.dispatch(updateAndShowBookModal(props.data[1]))
+            }
+          >
             <img
               src={props.data[2].image_url}
               alt={props.data[2].title}
