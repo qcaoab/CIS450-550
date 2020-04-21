@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { updateSearchQuery } from "../../redux/actions";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Row, Col } from "reactstrap";
-import { BookModal } from "../Book/BookModal";
 
 class _Trivia extends React.Component {
   render() {

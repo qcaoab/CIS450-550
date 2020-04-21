@@ -2,6 +2,7 @@ import { BOOK } from "../actionTypes";
 
 const initialState = {
   visible: false,
+  favorite: false,
   info: {
     isbn: "",
     text_reviews_count: "1",
@@ -52,7 +53,12 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
     case BOOK.UPDATE:
-      return { ...state };
+      return {
+        ...state,
+        visible: action.visible,
+        favorite: action.favorite,
+        info: action.book
+      };
     case BOOK.SHOW_MODAL:
       return { ...state, visible: true };
     case BOOK.HIDE_MODAL:

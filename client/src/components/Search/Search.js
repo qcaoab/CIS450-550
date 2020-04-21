@@ -26,8 +26,8 @@ class _Search extends React.Component {
                   <SearchResultsHeader />
                 </div>
                 <div className="header-container">
-                  {this.props.search.results &&
-                    this.props.search.results.map((obj) => (
+                  {this.props.data.search_results &&
+                    this.props.data.search_results.map((obj) => (
                       <SearchResultsCard {...obj} />
                     ))}
                 </div>
@@ -41,7 +41,7 @@ class _Search extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { search } = state;
-  return { search };
+  const { data } = state;
+  return { data };
 };
 export default connect(mapStateToProps, { updateSearchQuery })(_Search);

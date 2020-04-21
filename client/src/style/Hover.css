@@ -29,6 +29,12 @@
   transition: opacity 0.2s, visibility 0.2s;
 }
 
+.img_star {
+  position: absolute;
+  top: 5px;
+  left: 70px;
+}
+
 .img__wrap:hover .img__description {
   visibility: visible;
   opacity: 1;
