@@ -5,8 +5,6 @@ const cors = require("cors");
 
 const app = express();
 
-
-
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -18,9 +16,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 /* ---- (Dashboard) ---- */
 // The route localhost:8081/genres is registered to the function
 // routes.getAllGenres, specified in routes.js.
-app.get("/randombBooks", routes.randomBooks);
+app.get("/randomBooks", routes.randomBooks);
 
 app.listen(8081, () => {
   console.log(`Server listening on PORT 8081`);
 });
-

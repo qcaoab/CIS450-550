@@ -15,12 +15,12 @@ const _FavoriteCarouselRow = (props) => {
           <div
             class="img__wrap"
             onClick={() =>
-              props.dispatch(updateAndShowBookModal(props.data[1]))
+              props.dispatch(updateAndShowBookModal(props.data[0]))
             }
           >
             <img
-              src={props.data[0].image_url}
-              alt={props.data[0].title}
+              src={props.data[0].IMAGE_URL}
+              alt={props.data[0].TITLE}
               style={{
                 height: "95%",
                 marginLeft: "auto",
@@ -33,7 +33,7 @@ const _FavoriteCarouselRow = (props) => {
               <FontAwesomeIcon icon={faStar} style={{ color: "#FEFF00" }} />
             </div>
 
-            <p class="img__description">{props.data[0].title}</p>
+            <p class="img__description">{props.data[0].TITLE}</p>
           </div>
         ) : null}
       </Col>
@@ -46,8 +46,8 @@ const _FavoriteCarouselRow = (props) => {
             }
           >
             <img
-              src={props.data[1].image_url}
-              alt={props.data[1].title}
+              src={props.data[1].IMAGE_URL}
+              alt={props.data[1].TITLE}
               style={{
                 height: "95%",
                 marginLeft: "auto",
@@ -60,7 +60,7 @@ const _FavoriteCarouselRow = (props) => {
               <FontAwesomeIcon icon={faStar} style={{ color: "#FEFF00" }} />
             </div>
 
-            <p class="img__description">{props.data[1].title}</p>
+            <p class="img__description">{props.data[1].TITLE}</p>
           </div>
         ) : null}
       </Col>
@@ -69,12 +69,12 @@ const _FavoriteCarouselRow = (props) => {
           <div
             class="img__wrap"
             onClick={() =>
-              props.dispatch(updateAndShowBookModal(props.data[1]))
+              props.dispatch(updateAndShowBookModal(props.data[2]))
             }
           >
             <img
-              src={props.data[2].image_url}
-              alt={props.data[2].title}
+              src={props.data[2].IMAGE_URL}
+              alt={props.data[2].TITLE}
               style={{
                 height: "95%",
                 marginLeft: "auto",
@@ -87,7 +87,7 @@ const _FavoriteCarouselRow = (props) => {
               <FontAwesomeIcon icon={faStar} style={{ color: "#FEFF00" }} />
             </div>
 
-            <p class="img__description">{props.data[2].title}</p>
+            <p class="img__description">{props.data[2].TITLE}</p>
           </div>
         ) : null}
       </Col>

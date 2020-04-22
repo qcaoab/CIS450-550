@@ -23,8 +23,8 @@ const _FavoriteCarousel = (props) => {
   var data = Object.values(props.data.favorites);
   var slide_data = [];
   while (data.length) {
-    let top = data.splice(0, 6);
-    const bot = data.splice(0, 3);
+    let bot = data.splice(0, 6);
+    const top = bot.splice(0, 3);
     slide_data.push([top, bot]);
   }
   const next = () => {

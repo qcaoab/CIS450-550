@@ -1,65 +1,38 @@
-import {
-  put,
-  takeLatest,
-  all,
-  take,
-  takeEvery,
-  fork
-} from "redux-saga/effects";
-import { QUERY } from "../actionTypes";
-import { REHYDRATE } from "redux-persist";
-function* executeQuery1(action) {
-  console.log("test3");
-  const json = yield fetch(`http://localhost:8081/randombooks`, {
+import { put, takeLatest, all } from "redux-saga/effects";
+import { BOOK, QUERY, SEARCH } from "../actionTypes";
+
+function* queryPopularBooks() {
+  console.log("Fetching");
+  const json = yield fetch(`http://localhost:8081/randomBooks`, {
     method: "GET"
-  }).then((response) => response.json());
-  yield put({ type: "UPDATE_RESULTS", json: json.articles });
+  }).then(
+    (res) => {
+      return res.json();
+    },
+    (err) => {
+      console.log(err);
+      return err;
+    }
+  );
+
+  yield put({
+    type: SEARCH.UPDATE_RESULTS,
+    json: json || [{ error: json.message }]
+  });
 }
 
-function* logActions() {
-  console.log("asdf");
-  while (true) {
-    const action = yield take(); // correct
-    console.log(action);
-  }
-}
+// function* queryPopularBooks() {
+//   console.log("Fetching");
+//   const json = yield fetch(
+//     "https://newsapi.org/v1/articles?source=cnn&apiKey=c39a26d9c12f48dba2a5c00e35684ecc"
+//   ).then((response) => response.json());
 
-function* executeQuery2(action) {
-  const json = yield fetch(`http://localhost:8081/randombooks`, {
-    method: "GET"
-  }).then((response) => response.json());
-  yield put({ type: "UPDATE_RESULTS", json: json.articles });
-}
-
-function* actionWatcher1(action) {
-  console.log("test2");
-  yield takeEvery(QUERY.POPULAR_BOOKS, logActions);
-}
-function* actionWatcher2(action) {
-  yield takeLatest(QUERY.BEST_REVIEWS, executeQuery2);
-}
-
-// export default function* rootSaga() {
-//   console.log("running sagas");
-//   // yield takeLatest(QUERY.POPULAR_BOOKS, executeQuery1);
-//   // yield takeLatest(QUERY.MOST_GENRE_AUTHOR, executeQuery2);
-//   yield all([
-//     // logActions
-//     actionWatcher1()
-//     // actionWatcher2()
-//     // actionWatcher3(),
-//     // actionWatcher4(),
-//     // actionWatcher5(),
-//     // actionWatcher6(),
-//     // actionWatcher7(),
-//     // actionWatcher8(),
-//     // actionWatcher9()
-//   ]);
+//   yield put({
+//     type: BOOK.TOGGLE_MODAL,
+//     json: json.articles || [{ error: json.message }]
+//   });
 // }
 
 export default function* rootSaga() {
-  console.log("Waiting for rehydration");
-  yield take(REHYDRATE); // Wait for rehydrate to prevent sagas from running with empty store
-  console.log("Rehydrated");
-  yield all([actionWatcher1]);
+  yield all([yield takeLatest(QUERY.POPULAR_BOOKS, queryPopularBooks)]);
 }

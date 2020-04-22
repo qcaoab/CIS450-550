@@ -61,7 +61,7 @@ class _Search extends React.Component {
                           currentPage * this.pageSize,
                           (currentPage + 1) * this.pageSize
                         )
-                        .map((obj) => <SearchResultsCard {...obj} />)
+                        .map((obj) => <SearchResultsCard book_info={obj} />)
                     : "No Books Found"}
                 </div>
               </Col>

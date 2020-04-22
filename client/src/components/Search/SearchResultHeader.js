@@ -16,7 +16,7 @@ const _SearchResultsHeader = (props) => (
           onChange={props.updateSearchQuery}
         />
         <InputGroupAddon addonType="append">
-          <Button color="primary" onClick={getPopularBooks}>
+          <Button color="primary" onClick={props.getPopularBooks}>
             <FontAwesomeIcon icon={faSearch} />
           </Button>
         </InputGroupAddon>

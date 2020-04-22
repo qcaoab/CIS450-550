@@ -29,6 +29,7 @@ function randomBooks(req, res) {
         },
         function(err) {
           console.log('Error occurred', err);
+          
         }
     ).then(function() {
         if (conn) {

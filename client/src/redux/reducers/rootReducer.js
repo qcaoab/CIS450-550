@@ -1,24 +1,20 @@
 import { BOOK, FAVORITE, QUERY, SEARCH } from "../actionTypes";
-import { default_book_info } from "./placeholder";
+import {
+  default_book_info,
+  default_book_info2,
+  default_book_info3
+} from "./placeholder";
 
 const initialState = {
   results: null,
   loading: false,
-  search_results: [
-    default_book_info,
-    default_book_info,
-    default_book_info,
-    default_book_info,
-    default_book_info,
-    default_book_info,
-    default_book_info
-  ],
+  search_results: [default_book_info, default_book_info2, default_book_info3],
   search_filters: null,
   search_query: null,
   favorites: {
-    "16037549": default_book_info,
-    "2": default_book_info,
-    "3": default_book_info
+    [default_book_info.BOOK_ID]: default_book_info,
+    [default_book_info2.BOOK_ID]: default_book_info2,
+    [default_book_info3.BOOK_ID]: default_book_info3
   },
   book_modal_visible: false,
   book_modal_info: default_book_info
@@ -38,7 +34,7 @@ export default function (state = initialState, action) {
     case QUERY.MOST_GENRE_AUTHOR:
       return { ...state, loading: true };
     case QUERY.UPDATE_RESULTS:
-      return { ...state, results: action.json[0], loading: false };
+      return { ...state, results: action.json, loading: false };
     case SEARCH.UPDATE_FILTERS:
       return { ...state, filters: null };
     case SEARCH.UPDATE_QUERY:
@@ -46,7 +42,7 @@ export default function (state = initialState, action) {
       return { ...state, query };
 
     case SEARCH.UPDATE_RESULTS:
-      return { ...state };
+      return { ...state, search_results: action.json, loading: false };
 
     case FAVORITE.ADD:
       return { favorites: [] };
@@ -59,19 +55,19 @@ export default function (state = initialState, action) {
 
     case BOOK.TOGGLE_FAVORITE:
       const book_modal_favorite = state.favorites.hasOwnProperty(
-        state.book_modal_info.book_id
+        state.book_modal_info.BOOK_ID
       );
       if (book_modal_favorite == false) {
         return {
           ...state,
           favorites: {
             ...state.favorites,
-            [state.book_modal_info.book_id]: state.book_modal_info
+            [state.book_modal_info.BOOK_ID]: state.book_modal_info
           }
         };
       } else {
         const {
-          [state.book_modal_info.book_id]: temp,
+          [state.book_modal_info.BOOK_ID]: temp,
           ...rest
         } = state.favorites;
         return {

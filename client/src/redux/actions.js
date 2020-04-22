@@ -42,6 +42,5 @@ export const updateAndShowBookModal = (book) => {
 };
 
 export const getPopularBooks = () => {
-  console.log(QUERY.POPULAR_BOOKS);
   return { type: QUERY.POPULAR_BOOKS };
 };
