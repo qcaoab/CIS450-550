@@ -39,7 +39,7 @@ export default class PageNavbar extends React.Component {
       <div className="PageNavbar">
         <nav
           className="navbar fixed-top navbar-expand-lg navbar-light"
-          style={{ backgroundColor: "beige" }}
+          style={{ backgroundColor: "#F9F9EB" }}
         >
           <span className="navbar-brand center">Bookworm</span>
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">

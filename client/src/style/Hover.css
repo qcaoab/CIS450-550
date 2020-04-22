@@ -14,14 +14,15 @@
 
 .img__description {
   position: absolute;
-  top: 0;
   bottom: 0;
+  top: 0;
   left: 0;
   right: 0;
-  background: rgba(194, 196, 196, 0.72);
-  color: #fff;
+  background: #fffff3b8;
+  color: #6e6e6eff;
   text-align: center;
-  padding-top: 30%;
+  padding-top: 25%;
+  padding-bottom: 50%;
   visibility: hidden;
   opacity: 0;
 

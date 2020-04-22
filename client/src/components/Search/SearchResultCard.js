@@ -6,7 +6,7 @@ import { updateAndShowBookModal } from "../../redux/actions";
 
 const _SearchResultsCard = (props) => (
   <React.Fragment>
-    <Card className="mb-3">
+    <Card className="mb-3" style={{ marginTop: 15 }}>
       <CardBody
         onClick={() => props.dispatch(updateAndShowBookModal(props.book_info))}
       >

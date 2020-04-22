@@ -4,7 +4,7 @@ import "../../style/Search.css";
 import { connect } from "react-redux";
 import { updateSearchQuery } from "../../redux/actions";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Row, Col } from "reactstrap";
+import { Row, Col, Jumbotron } from "reactstrap";
 
 class _Trivia extends React.Component {
   render() {
@@ -12,8 +12,8 @@ class _Trivia extends React.Component {
       <div className="Search">
         <PageNavbar active="trivia" />
         <div className="container search-container">
-          <div className="jumbotron">
-            <div className="h3">Search</div>
+          <Jumbotron style={{ backgroundColor: "#FFFFF3", paddingTop: 30 }}>
+            <div className="h2">Trivia</div>
 
             <Row>
               <Col lg={2}></Col>
@@ -22,7 +22,7 @@ class _Trivia extends React.Component {
                 <div className="header-container"></div>
               </Col>
             </Row>
-          </div>
+          </Jumbotron>
         </div>
       </div>
     );

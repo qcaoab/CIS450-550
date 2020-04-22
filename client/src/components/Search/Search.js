@@ -46,11 +46,13 @@ class _Search extends React.Component {
       <div className="Search">
         <PageNavbar active="search" />
         <div className="container search-container">
-          <Jumbotron style={{ backgroundColor: "#F9F9EB", paddingTop: 30 }}>
+          <Jumbotron style={{ backgroundColor: "#FFFFF3", paddingTop: 30 }}>
             <Row>
-              <Col lg={2}></Col>
+              <Col lg={2} style={{ borderRight: "3px solid beige" }}>
+                <div className="h2">Search</div>
+              </Col>
               <Col lg={10}>
-                <div className="input-container">
+                <div style={{ paddingTop: 5 }}>
                   <SearchResultsHeader />
                 </div>
 
