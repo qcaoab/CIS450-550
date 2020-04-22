@@ -12,15 +12,13 @@ class _Discover extends React.Component {
       <div className="Dashboard">
         <PageNavbar active="discover" />
 
-        <br></br>
-        <br></br>
-
         <div
           style={{
             backgroundImage: `url(${Background})`,
             backgroundSize: "100%",
             height: 600,
-            width: 1100
+            width: 1100,
+            marginTop: 70
           }}
           className="container books-container"
         >
