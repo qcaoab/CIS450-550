@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { updateSearchQuery } from "../../redux/actions";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Row, Col, Jumbotron } from "reactstrap";
+import { TriviaSection } from "./TriviaSection";
 
 class _Trivia extends React.Component {
   render() {
@@ -14,13 +15,16 @@ class _Trivia extends React.Component {
         <div className="container search-container">
           <Jumbotron style={{ backgroundColor: "#FFFFF3", paddingTop: 30 }}>
             <div className="h2">Trivia</div>
+            <br />
 
             <Row>
-              <Col lg={2}></Col>
-              <Col lg={10}>
-                <div className="input-container"></div>
-                <div className="header-container"></div>
-              </Col>
+              <TriviaSection />
+            </Row>
+            <Row>
+              <TriviaSection />
+            </Row>
+            <Row>
+              <TriviaSection />
             </Row>
           </Jumbotron>
         </div>

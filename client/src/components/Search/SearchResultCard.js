@@ -34,7 +34,7 @@ const _SearchResultsCard = (props) => (
             <p className="mb-0">
               {props.book_info.DESCRIPTION
                 ? props.book_info.DESCRIPTION
-                : "testing"}
+                : "No Description Available."}
             </p>
           </Col>
         </Row>

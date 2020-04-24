@@ -1,9 +1,9 @@
 import { put, takeLatest, all } from "redux-saga/effects";
-import { BOOK, QUERY, SEARCH } from "../actionTypes";
+import { BOOK, QUERY, SEARCH, DISCOVER } from "../actionTypes";
 
-function* queryPopularBooks() {
+function* searchBooks() {
   console.log("Fetching");
-  const json = yield fetch(`http://localhost:8081/randomBooks`, {
+  const json = yield fetch(`http://localhost:8081/randomBooks/10`, {
     method: "GET"
   }).then(
     (res) => {
@@ -17,6 +17,25 @@ function* queryPopularBooks() {
 
   yield put({
     type: SEARCH.UPDATE_RESULTS,
+    json: json || [{ error: json.message }]
+  });
+}
+function* discoverQueryBooks() {
+  console.log("Fetching");
+  const json = yield fetch(`http://localhost:8081/randomBooks/24`, {
+    method: "GET"
+  }).then(
+    (res) => {
+      return res.json();
+    },
+    (err) => {
+      console.log(err);
+      return err;
+    }
+  );
+
+  yield put({
+    type: DISCOVER.UPDATE_RESULTS,
     json: json || [{ error: json.message }]
   });
 }
@@ -34,5 +53,8 @@ function* queryPopularBooks() {
 // }
 
 export default function* rootSaga() {
-  yield all([yield takeLatest(QUERY.POPULAR_BOOKS, queryPopularBooks)]);
+  yield all([
+    yield takeLatest(QUERY.POPULAR_BOOKS, searchBooks),
+    yield takeLatest(DISCOVER.QUERY_BOOKS, discoverQueryBooks)
+  ]);
 }

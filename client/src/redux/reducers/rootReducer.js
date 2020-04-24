@@ -1,8 +1,9 @@
-import { BOOK, FAVORITE, QUERY, SEARCH } from "../actionTypes";
+import { BOOK, FAVORITE, QUERY, SEARCH, DISCOVER } from "../actionTypes";
 import {
   default_book_info,
   default_book_info2,
-  default_book_info3
+  default_book_info3,
+  default_author_info1
 } from "./placeholder";
 
 const initialState = {
@@ -17,7 +18,10 @@ const initialState = {
     [default_book_info3.BOOK_ID]: default_book_info3
   },
   book_modal_visible: false,
-  book_modal_info: default_book_info
+  book_modal_info: default_book_info,
+  author_page_info: default_author_info1,
+  author_books: [default_book_info, default_book_info2, default_book_info3],
+  discover_books: []
 };
 
 export default function (state = initialState, action) {
@@ -32,7 +36,10 @@ export default function (state = initialState, action) {
     case QUERY.PROLIFIC_AUTHOR:
     case QUERY.CROSS_GENRE_AUTHOR:
     case QUERY.MOST_GENRE_AUTHOR:
+    case DISCOVER.QUERY_BOOKS:
       return { ...state, loading: true };
+    case DISCOVER.UPDATE_RESULTS:
+      return { ...state, discover_books: action.json, loading: false };
     case QUERY.UPDATE_RESULTS:
       return { ...state, results: action.json, loading: false };
     case SEARCH.UPDATE_FILTERS:

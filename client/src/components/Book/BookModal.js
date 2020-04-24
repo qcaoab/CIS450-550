@@ -18,7 +18,7 @@ const _BookModal = (props) => {
   //   .map((obj) => obj.author_id)
   //   .join(", ")
   //   .replace(/, ([^,]*)$/, " and $1");
-  const author_str = "";
+  const author_str = "Author Name";
   const book_modal_favorite = props.data.favorites.hasOwnProperty(
     props.data.book_modal_info.BOOK_ID
   );
@@ -69,16 +69,27 @@ const _BookModal = (props) => {
 
               <br />
               <br />
-              <span>{props.data.book_modal_info.DESCRIPTION}</span>
+              <div style={{ textAlign: "center" }}>
+                <span>{props.data.book_modal_info.DESCRIPTION}</span>
+              </div>
               <br />
               <br />
-              <span class="h5">Quotes</span>
-              <br />
-              <br />
-              <span class="h5">Reviews</span>
-              <br />
-              <br />
-              <span class="h5">Author Profile</span>
+              <div style={{ paddingTop: 20 }}>
+                <span class="h5">Author Profile</span>
+                <br />
+                <div style={{ textAlign: "left", paddingTop: 5 }}>{"TODO"}</div>
+              </div>
+              <div style={{ paddingTop: 20 }}>
+                <span class="h5">Reviews</span>
+                <div style={{ textAlign: "center", paddingTop: 5 }}>
+                  <p>
+                    {
+                      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Velit eligendi deserunt exercitationem, voluptate, odit sunt necessitatibus iusto neque unde debitis dolor sit doloribus rerum perspiciatis ea labore quasi esse. Itaque."
+                    }
+                  </p>
+                </div>
+                <br />
+              </div>
             </Col>
           </Row>
         </ModalBody>

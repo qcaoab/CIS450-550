@@ -6,55 +6,90 @@ import { connect } from "react-redux";
 import { updateSearchQuery } from "../../redux/actions";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { SearchResultsCard } from "../Search/SearchResultCard";
+import { Row, Col, Jumbotron } from "reactstrap";
 
 class _Authors extends React.Component {
-  render() {
-    return (
-      <div className="Search" max-width="300px">
-        <PageNavbar active="authors" />
+  constructor() {
+    super();
 
+    this.pageSize = 5;
+
+    this.state = {
+      currentPage: 0
+    };
+  }
+  handleClick(e, index) {
+    e.preventDefault();
+
+    this.setState({
+      currentPage: index
+    });
+  }
+
+  render() {
+    this.pagesCount = Math.ceil(
+      this.props.data.search_results.length / this.pageSize
+    );
+
+    const { currentPage } = this.state;
+    return (
+      <div className="Search">
+        <PageNavbar active="search" />
         <div className="container search-container">
-          <div className="jumbotron">
-            <div className="h5">Search</div>
-            <br></br>
-            <div className="input-container">
-              <input
-                type="text"
-                placeholder="Enter book Name"
-                onChange={this.props.updateSearchQuery}
-                id="bookName"
-                className="book-input"
-              />
-              <button
-                id="submitbookBtn"
-                className="submit-btn"
-                onClick={this.props.submitSearch}
-              >
-                Submit
-              </button>
-            </div>
-            <div className="header-container">
-              {this.props.search.results &&
-                this.props.search.results.map((obj) => (
-                  <SearchResultsCard {...obj} />
-                ))}
-              <div className="headers">
-                <div className="header">
-                  <strong>Title</strong>
+          <Jumbotron style={{ backgroundColor: "#FFFFF3", paddingTop: 30 }}>
+            <Row>
+              <Col lg={3} style={{ borderRight: "3px solid beige" }}>
+                <div className="h2" style={{ textAlign: "center" }}>
+                  {this.props.data.author_page_info
+                    ? this.props.data.author_page_info.NAME
+                    : "Author Name"}
                 </div>
-                <div className="header">
-                  <strong>book ID</strong>
+                <img
+                  src={
+                    "https://images.gr-assets.com/authors/1394355831p8/6991433.jpg"
+                  }
+                  alt="author image"
+                  style={{ width: "100%" }}
+                />
+              </Col>
+              <Col lg={9}>
+                <span class="h4">Statistics</span>
+                <br />
+                <div style={{ textAlign: "center", padding: 20 }}>
+                  <span class="h5">
+                    Average Rating:{" "}
+                    {this.props.data.author_page_info.AVERAGE_RATING
+                      ? this.props.data.author_page_info.AVERAGE_RATING
+                      : "NA"}
+                    /5
+                  </span>
+                  <span className="mx-2">·</span>
+                  <span class="h5">
+                    Ratings:{" "}
+                    {this.props.data.author_page_info.RATING_COUNT
+                      ? this.props.data.author_page_info.RATING_COUNT
+                      : "NA"}
+                  </span>
+                  <span className="mx-2">·</span>
+                  <span class="h5">
+                    Reviews:{" "}
+                    {this.props.data.author_page_info.TEXT_REVIEW_COUNT
+                      ? this.props.data.author_page_info.TEXT_REVIEW_COUNT
+                      : "NA"}
+                  </span>
                 </div>
-                <div className="header">
-                  <strong>Rating</strong>
-                </div>
-                <div className="header">
-                  <strong>Vote Count</strong>
-                </div>
-              </div>
-            </div>
-            <div className="results-container" id="results"></div>
-          </div>
+                <span class="h4">Books</span>
+                {this.props.data.author_books
+                  ? this.props.data.author_books
+                      .slice(
+                        currentPage * this.pageSize,
+                        (currentPage + 1) * this.pageSize
+                      )
+                      .map((obj) => <SearchResultsCard book_info={obj} />)
+                  : "No Books Found"}
+              </Col>
+            </Row>
+          </Jumbotron>
         </div>
       </div>
     );
@@ -62,7 +97,7 @@ class _Authors extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { search } = state;
-  return { search };
+  const { data } = state;
+  return { data };
 };
 export default connect(mapStateToProps, { updateSearchQuery })(_Authors);

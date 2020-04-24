@@ -89,3 +89,378 @@ export const default_book_info3 = {
   TEXT_REVIEWS_COUNT: 1,
   TITLE: "Koine Greek New Testament"
 };
+
+export const default_author_info1 = {
+  AVERAGE_RATING: 3.9,
+  AUTHOR_ID: 6991433,
+  TEXT_REVIEW_COUNT: 15,
+  NAME: "Jurgis Gimberis",
+  RATING_COUNT: 231
+};
+
+export const default_discover = [
+  {
+    BOOK_ID: "8730988",
+    TEXT_REVIEWS_COUNT: 3,
+    COUNTRY_CODE: "US",
+    AVERAGE_RATING: 3.3000000000000003,
+    TITLE: "The American Painter Emma Dial",
+    DESCRIPTION: null,
+    FORMAT: "ebook",
+    ISBN: "0393074390",
+    PUBLICATION_YEAR: "2010",
+    IMAGE_URL: "https://images.gr-assets.com/books/1355826167m/8730988.jpg",
+    NUM_PAGES: 336,
+    PUBLISHER: "W. W. Norton  Company"
+  },
+  {
+    BOOK_ID: "28928603",
+    TEXT_REVIEWS_COUNT: 3,
+    COUNTRY_CODE: "US",
+    AVERAGE_RATING: 3.93,
+    TITLE: "Zeg and the Egg (Blaze and the Monster Machines)",
+    DESCRIPTION: null,
+    FORMAT: null,
+    ISBN: null,
+    PUBLICATION_YEAR: "2016",
+    IMAGE_URL:
+      "https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png",
+    NUM_PAGES: null,
+    PUBLISHER: null
+  },
+  {
+    BOOK_ID: "785553",
+    TEXT_REVIEWS_COUNT: 46,
+    COUNTRY_CODE: "US",
+    AVERAGE_RATING: 3.86,
+    TITLE: "If You See a Kitten",
+    DESCRIPTION:
+      "From the creator of While You Were Sleeping and Hush, Little Ones comes a perfect read-aloud book that young children will want to read again and again. Full color.",
+    FORMAT: "Hardcover",
+    ISBN: "1561451088",
+    PUBLICATION_YEAR: "2003",
+    IMAGE_URL:
+      "https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png",
+    NUM_PAGES: 24,
+    PUBLISHER: "Peachtree Publishers"
+  },
+  {
+    BOOK_ID: "5889804",
+    TEXT_REVIEWS_COUNT: 2,
+    COUNTRY_CODE: "US",
+    AVERAGE_RATING: 2.83,
+    TITLE: "Ø§Ù„Ø¢Ø«Ø§Ø± Ø§Ù„Ø´Ø¹Ø±ÙŠØ© Ø§Ù„ÙƒØ§Ù…Ù„Ø© Ù„Ø¹Ù„Ù‰ Ù‚Ù†Ø¯ÙŠÙ„",
+    DESCRIPTION: null,
+    FORMAT: null,
+    ISBN: null,
+    PUBLICATION_YEAR: "1993",
+    IMAGE_URL:
+      "https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png",
+    NUM_PAGES: 146,
+    PUBLISHER: "mrkz `lm lwTn l`rb~"
+  },
+  {
+    BOOK_ID: "8128565",
+    TEXT_REVIEWS_COUNT: 1,
+    COUNTRY_CODE: "US",
+    AVERAGE_RATING: 4.54,
+    TITLE: "Koine Greek New Testament",
+    DESCRIPTION:
+      "This is the Byzantine Majority text of the Koine Greek New Testament.",
+    FORMAT: null,
+    ISBN: null,
+    PUBLICATION_YEAR: "2009",
+    IMAGE_URL: "https://images.gr-assets.com/books/1353065422m/8128565.jpg",
+    NUM_PAGES: 741,
+    PUBLISHER: "Stefan Rusek"
+  },
+  {
+    BOOK_ID: "10290982",
+    TEXT_REVIEWS_COUNT: 15,
+    COUNTRY_CODE: "US",
+    AVERAGE_RATING: 3.95,
+    TITLE: "Clockwork Fairies",
+    DESCRIPTION:
+      "Desiree feels the most at home with her clockwork creations, but Claude worries about all this science and Darwinist nonsense--after all, where do clockwork fairies fall in the Great Chain of Being?",
+    FORMAT: null,
+    ISBN: null,
+    PUBLICATION_YEAR: null,
+    IMAGE_URL:
+      "https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png",
+    NUM_PAGES: null,
+    PUBLISHER: null
+  },
+  {
+    BOOK_ID: "2831908",
+    TEXT_REVIEWS_COUNT: 1,
+    COUNTRY_CODE: "US",
+    AVERAGE_RATING: 4.5,
+    TITLE: "Imagine-- Ernie is Teeny-Tiny",
+    DESCRIPTION:
+      "Imagine... Ernie is Teeny-Tiny is a 1994 Sesame Street book in which Ernie imagines that he shrinks.",
+    FORMAT: null,
+    ISBN: "0307631311",
+    PUBLICATION_YEAR: null,
+    IMAGE_URL: "https://images.gr-assets.com/books/1261165202m/2831908.jpg",
+    NUM_PAGES: null,
+    PUBLISHER: null
+  },
+  {
+    BOOK_ID: "26452871",
+    TEXT_REVIEWS_COUNT: 1,
+    COUNTRY_CODE: "US",
+    AVERAGE_RATING: 5,
+    TITLE: "Meet a Baby Hippo",
+    DESCRIPTION:
+      "Did you know that baby hippos are born underwater? Or that a baby hippo weighs about as much as ten human babies? Find out more fascinating facts about hippo calves.",
+    FORMAT: "Paperback",
+    ISBN: "1467783633",
+    PUBLICATION_YEAR: "2015",
+    IMAGE_URL:
+      "https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png",
+    NUM_PAGES: 32,
+    PUBLISHER: "Lerner Classroom"
+  },
+  {
+    BOOK_ID: "26095291",
+    TEXT_REVIEWS_COUNT: 1,
+    COUNTRY_CODE: "US",
+    AVERAGE_RATING: 3.5,
+    TITLE:
+      "The Gift: A Treasury of Practical Mental Strategies to Empower Your Riding",
+    DESCRIPTION: null,
+    FORMAT: null,
+    ISBN: "0966258576",
+    PUBLICATION_YEAR: null,
+    IMAGE_URL:
+      "https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png",
+    NUM_PAGES: null,
+    PUBLISHER: null
+  },
+  {
+    BOOK_ID: "25822177",
+    TEXT_REVIEWS_COUNT: 1,
+    COUNTRY_CODE: "US",
+    AVERAGE_RATING: 4.5600000000000005,
+    TITLE: "Sebastian Cork: Forget Me Not",
+    DESCRIPTION: null,
+    FORMAT: null,
+    ISBN: null,
+    PUBLICATION_YEAR: null,
+    IMAGE_URL:
+      "https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png",
+    NUM_PAGES: null,
+    PUBLISHER: null
+  },
+  {
+    BOOK_ID: "8037416",
+    TEXT_REVIEWS_COUNT: 5,
+    COUNTRY_CODE: "US",
+    AVERAGE_RATING: 4.57,
+    TITLE: "Giver of Life: Lessons From Eve",
+    DESCRIPTION: null,
+    FORMAT: null,
+    ISBN: "1606417649",
+    PUBLICATION_YEAR: "2010",
+    IMAGE_URL:
+      "https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png",
+    NUM_PAGES: null,
+    PUBLISHER: "Deseret Book"
+  },
+  {
+    BOOK_ID: "7327624",
+    TEXT_REVIEWS_COUNT: 7,
+    COUNTRY_CODE: "US",
+    AVERAGE_RATING: 4.03,
+    TITLE: "The Unschooled Wizard (Sun Wolf and Starhawk, #1-2)",
+    DESCRIPTION:
+      "Omnibus book club edition containing the Ladies of Madrigyn and the Witches of Wenshar.",
+    FORMAT: "Hardcover",
+    ISBN: null,
+    PUBLICATION_YEAR: "1987",
+    IMAGE_URL: "https://images.gr-assets.com/books/1304100136m/7327624.jpg",
+    NUM_PAGES: 600,
+    PUBLISHER: "Nelson Doubleday, Inc."
+  },
+  {
+    BOOK_ID: "28543321",
+    TEXT_REVIEWS_COUNT: 1,
+    COUNTRY_CODE: "US",
+    AVERAGE_RATING: 4,
+    TITLE: "Acceptance and Commitment Therapy For Dummies",
+    DESCRIPTION: null,
+    FORMAT: null,
+    ISBN: null,
+    PUBLICATION_YEAR: null,
+    IMAGE_URL:
+      "https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png",
+    NUM_PAGES: null,
+    PUBLISHER: null
+  },
+  {
+    BOOK_ID: "1907184",
+    TEXT_REVIEWS_COUNT: 49,
+    COUNTRY_CODE: "US",
+    AVERAGE_RATING: 3.99,
+    TITLE: "Ø¨ÙˆÙ� Ú©ÙˆØ±",
+    DESCRIPTION: null,
+    FORMAT: null,
+    ISBN: null,
+    PUBLICATION_YEAR: "2007",
+    IMAGE_URL: "https://images.gr-assets.com/books/1457787423m/1907184.jpg",
+    NUM_PAGES: 86,
+    PUBLISHER: "jwydn"
+  },
+  {
+    BOOK_ID: "11993624",
+    TEXT_REVIEWS_COUNT: 1,
+    COUNTRY_CODE: "US",
+    AVERAGE_RATING: 3.77,
+    TITLE: "Moon of Ripening",
+    DESCRIPTION: null,
+    FORMAT: null,
+    ISBN: null,
+    PUBLICATION_YEAR: null,
+    IMAGE_URL:
+      "https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png",
+    NUM_PAGES: null,
+    PUBLISHER: null
+  },
+  {
+    BOOK_ID: "26106940",
+    TEXT_REVIEWS_COUNT: 2,
+    COUNTRY_CODE: "US",
+    AVERAGE_RATING: 4,
+    TITLE: "The Executioner's Ax: A Light, Ghostly, Short Romance Story",
+    DESCRIPTION: null,
+    FORMAT: null,
+    ISBN: null,
+    PUBLICATION_YEAR: null,
+    IMAGE_URL:
+      "https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png",
+    NUM_PAGES: null,
+    PUBLISHER: null
+  },
+  {
+    BOOK_ID: "926665",
+    TEXT_REVIEWS_COUNT: 4,
+    COUNTRY_CODE: "US",
+    AVERAGE_RATING: 4.0200000000000005,
+    TITLE: "Live Bait (Monkeewrench #2)",
+    DESCRIPTION: null,
+    FORMAT: "Hardcover",
+    ISBN: "0718145860",
+    PUBLICATION_YEAR: "2004",
+    IMAGE_URL:
+      "https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png",
+    NUM_PAGES: 268,
+    PUBLISHER: "Michael Joseph Ltd"
+  },
+  {
+    BOOK_ID: "8674855",
+    TEXT_REVIEWS_COUNT: 3,
+    COUNTRY_CODE: "US",
+    AVERAGE_RATING: 3.45,
+    TITLE: "Mother To The World",
+    DESCRIPTION: null,
+    FORMAT: null,
+    ISBN: null,
+    PUBLICATION_YEAR: null,
+    IMAGE_URL:
+      "https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png",
+    NUM_PAGES: null,
+    PUBLISHER: null
+  },
+  {
+    BOOK_ID: "18396714",
+    TEXT_REVIEWS_COUNT: 1,
+    COUNTRY_CODE: "US",
+    AVERAGE_RATING: 4.17,
+    TITLE: "Ø²ÙˆØ¬Ø§Øª Ø§Ù„Ø±Ø³ÙˆÙ„ Ø¨ÙŠÙ† Ø§Ù„Ø­Ù‚ÙŠÙ‚Ø© ÙˆØ§Ù„Ø¥Ù�ØªØ±Ø§Ø¡",
+    DESCRIPTION: null,
+    FORMAT: null,
+    ISBN: null,
+    PUBLICATION_YEAR: null,
+    IMAGE_URL: "https://images.gr-assets.com/books/1377789677m/18396714.jpg",
+    NUM_PAGES: null,
+    PUBLISHER: null
+  },
+  {
+    BOOK_ID: "13598469",
+    TEXT_REVIEWS_COUNT: 1,
+    COUNTRY_CODE: "US",
+    AVERAGE_RATING: 4.2,
+    TITLE: "How to Draw Manga Chibi",
+    DESCRIPTION:
+      "Another especially short tutorial on drawing chibi style. More details on eyes and clothes. But still felt lacking considering she messed up her own first tutorial and left an ear off the character.",
+    FORMAT: null,
+    ISBN: null,
+    PUBLICATION_YEAR: null,
+    IMAGE_URL:
+      "https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png",
+    NUM_PAGES: null,
+    PUBLISHER: null
+  },
+  {
+    BOOK_ID: "25046284",
+    TEXT_REVIEWS_COUNT: 2,
+    COUNTRY_CODE: "US",
+    AVERAGE_RATING: 3.25,
+    TITLE:
+      "Banged by the Bear Clan (BBW, BWWM, Paranormal Menage Werebear Shifter Erotica)",
+    DESCRIPTION: null,
+    FORMAT: null,
+    ISBN: null,
+    PUBLICATION_YEAR: null,
+    IMAGE_URL:
+      "https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png",
+    NUM_PAGES: null,
+    PUBLISHER: null
+  },
+  {
+    BOOK_ID: "25414981",
+    TEXT_REVIEWS_COUNT: 3,
+    COUNTRY_CODE: "US",
+    AVERAGE_RATING: 3.25,
+    TITLE:
+      "The Wrath of Yellowstone (Preppers Fiction): The Wrath of Yellowstone Trilogy Boxed Set (Preppers Fiction, Apocalyptic Fiction, Survival, Travel Fiction Book 4)",
+    DESCRIPTION: null,
+    FORMAT: null,
+    ISBN: null,
+    PUBLICATION_YEAR: null,
+    IMAGE_URL:
+      "https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png",
+    NUM_PAGES: null,
+    PUBLISHER: null
+  },
+  {
+    BOOK_ID: "35912936",
+    TEXT_REVIEWS_COUNT: 14,
+    COUNTRY_CODE: "US",
+    AVERAGE_RATING: 3.95,
+    TITLE: "The Rest Will Come",
+    DESCRIPTION: null,
+    FORMAT: null,
+    ISBN: null,
+    PUBLICATION_YEAR: null,
+    IMAGE_URL:
+      "https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png",
+    NUM_PAGES: null,
+    PUBLISHER: null
+  },
+  {
+    BOOK_ID: "32317913",
+    TEXT_REVIEWS_COUNT: 11,
+    COUNTRY_CODE: "US",
+    AVERAGE_RATING: 3.85,
+    TITLE: "The Mountain Between Us",
+    DESCRIPTION: null,
+    FORMAT: null,
+    ISBN: null,
+    PUBLICATION_YEAR: null,
+    IMAGE_URL:
+      "https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png",
+    NUM_PAGES: null,
+    PUBLISHER: "Rose and Star Press"
+  }
+];

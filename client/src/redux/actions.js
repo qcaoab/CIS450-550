@@ -1,7 +1,7 @@
-import { SEARCH, BOOK, FAVORITE, QUERY } from "./actionTypes";
+import { SEARCH, BOOK, FAVORITE, QUERY, DISCOVER } from "./actionTypes";
 
 export const updateSearchQuery = (action) => {
-  const search_query = action.target.value;
+  const search_query = action.tRarget.value;
   return {
     type: SEARCH.UPDATE_QUERY,
     payload: { search_query }
@@ -43,4 +43,8 @@ export const updateAndShowBookModal = (book) => {
 
 export const getPopularBooks = () => {
   return { type: QUERY.POPULAR_BOOKS };
+};
+
+export const discoverBooks = () => {
+  return { type: DISCOVER.QUERY_BOOKS };
 };

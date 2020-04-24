@@ -5,8 +5,11 @@ import PageNavbar from "../PageNavbar";
 import { connect } from "react-redux";
 import { BookCarousel } from "./BookCarousel";
 import Background from "./bg3.jpg";
-
+import { discoverBooks } from "../../redux/actions";
 class _Discover extends React.Component {
+  componentWillMount() {
+    // this.props.discoverBooks();
+  }
   render() {
     return (
       <div className="Dashboard">
@@ -30,4 +33,4 @@ class _Discover extends React.Component {
   }
 }
 
-export const Discover = connect(null, null)(_Discover);
+export const Discover = connect(null, { discoverBooks })(_Discover);
