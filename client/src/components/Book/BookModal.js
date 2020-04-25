@@ -94,7 +94,11 @@ const _BookModal = (props) => {
           </Row>
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={props.toggleBookModal}>
+          <Button
+            color="primary"
+            onClick={props.toggleBookModal}
+            href={"/authors"}
+          >
             Go to Author Page
           </Button>
           <Button

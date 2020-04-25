@@ -8,6 +8,11 @@ export const updateSearchQuery = (action) => {
   };
 };
 
+export const submitSearch = () => {
+  return { type: SEARCH.SUBMIT_SEARCH };
+};
+
+
 export const toggleBookModal = () => {
   return {
     type: BOOK.TOGGLE_MODAL

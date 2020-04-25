@@ -2,7 +2,7 @@ import React from "react";
 
 import { InputGroup, InputGroupAddon, Input, Button } from "../../template";
 import { connect } from "react-redux";
-import { updateSearchQuery, getPopularBooks } from "../../redux/actions";
+import { updateSearchQuery, submitSearch } from "../../redux/actions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
@@ -16,7 +16,7 @@ const _SearchResultsHeader = (props) => (
           onChange={props.updateSearchQuery}
         />
         <InputGroupAddon addonType="append">
-          <Button color="primary" onClick={props.getPopularBooks}>
+          <Button color="primary" onClick={props.submitSearch}>
             <FontAwesomeIcon icon={faSearch} />
           </Button>
         </InputGroupAddon>
@@ -26,5 +26,5 @@ const _SearchResultsHeader = (props) => (
 );
 export const SearchResultsHeader = connect(null, {
   updateSearchQuery,
-  getPopularBooks
+  submitSearch
 })(_SearchResultsHeader);

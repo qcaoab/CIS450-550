@@ -20,12 +20,12 @@ class _Trivia extends React.Component {
             <Row>
               <TriviaSection />
             </Row>
-            <Row>
+            {/* <Row>
               <TriviaSection />
             </Row>
             <Row>
               <TriviaSection />
-            </Row>
+            </Row> */}
           </Jumbotron>
         </div>
       </div>

@@ -3,7 +3,8 @@ import {
   default_book_info,
   default_book_info2,
   default_book_info3,
-  default_author_info1
+  default_author_info1,
+  default_discover
 } from "./placeholder";
 
 const initialState = {
@@ -21,7 +22,10 @@ const initialState = {
   book_modal_info: default_book_info,
   author_page_info: default_author_info1,
   author_books: [default_book_info, default_book_info2, default_book_info3],
-  discover_books: []
+  discover_books: [default_discover],
+  trivia_results: {
+    [QUERY.POPULAR_BOOKS]: []
+  }
 };
 
 export default function (state = initialState, action) {
@@ -41,7 +45,14 @@ export default function (state = initialState, action) {
     case DISCOVER.UPDATE_RESULTS:
       return { ...state, discover_books: action.json, loading: false };
     case QUERY.UPDATE_RESULTS:
-      return { ...state, results: action.json, loading: false };
+      return {
+        ...state,
+        trivia_results: {
+          ...state.trivia_results,
+          [action.query]: action.json
+        },
+        loading: false
+      };
     case SEARCH.UPDATE_FILTERS:
       return { ...state, filters: null };
     case SEARCH.UPDATE_QUERY:

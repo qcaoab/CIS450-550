@@ -52,9 +52,31 @@ function* discoverQueryBooks() {
 //   });
 // }
 
+function* triviaPopularBooks() {
+  console.log("Fetching");
+  const json = yield fetch(`http://localhost:8081/popularBooks`, {
+    method: "GET"
+  }).then(
+    (res) => {
+      return res.json();
+    },
+    (err) => {
+      console.log(err);
+      return err;
+    }
+  );
+
+  yield put({
+    type: QUERY.UPDATE_RESULTS,
+    json: json || [{ error: json.message }],
+    query: QUERY.POPULAR_BOOKS
+  });
+}
+
 export default function* rootSaga() {
   yield all([
-    yield takeLatest(QUERY.POPULAR_BOOKS, searchBooks),
+    yield takeLatest(SEARCH.SUBMIT_SEARCH, searchBooks),
+    yield takeLatest(QUERY.POPULAR_BOOKS, triviaPopularBooks),
     yield takeLatest(DISCOVER.QUERY_BOOKS, discoverQueryBooks)
   ]);
 }

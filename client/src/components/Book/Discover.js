@@ -8,7 +8,7 @@ import Background from "./bg3.jpg";
 import { discoverBooks } from "../../redux/actions";
 class _Discover extends React.Component {
   componentWillMount() {
-    // this.props.discoverBooks();
+    this.props.discoverBooks();
   }
   render() {
     return (
