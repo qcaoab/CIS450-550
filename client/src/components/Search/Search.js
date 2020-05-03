@@ -13,7 +13,7 @@ import {
   Pagination,
   PaginationItem,
   PaginationLink,
-  Jumbotron
+  Spinner
 } from "reactstrap";
 import { BookModal } from "../Book/BookModal";
 
@@ -70,51 +70,76 @@ class _Search extends React.Component {
               </div>
 
               <div className="header-container">
-                {this.props.data.search_results
-                  ? this.props.data.search_results
+                {this.props.data.loading ? (
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center"
+                    }}
+                  >
+                    <Spinner animation="border" role="status">
+                      <span className="sr-only">Loading...</span>
+                    </Spinner>
+                  </div>
+                ) : this.props.data.search_results ? (
+                  <React.Fragment>
+                    {this.props.data.search_results
                       .slice(
                         currentPage * this.pageSize,
                         (currentPage + 1) * this.pageSize
                       )
-                      .map((obj) => <SearchResultsCard book_info={obj} />)
-                  : "No Books Found"}
-              </div>
-              <div
-                className="pagination-wrapper"
-                style={{
-                  justifyContent: "center",
-                  display: "flex",
-                  paddingTop: 10
-                }}
-              >
-                <Pagination aria-label="Page navigation example">
-                  <PaginationItem disabled={currentPage <= 0}>
-                    <PaginationLink
-                      onClick={(e) => this.handleClick(e, currentPage - 1)}
-                      previous
-                      href="#"
-                    />
-                  </PaginationItem>
+                      .map((obj) => (
+                        <SearchResultsCard book_info={obj} />
+                      ))}
+                    <div
+                      className="pagination-wrapper"
+                      style={{
+                        justifyContent: "center",
+                        display: "flex",
+                        paddingTop: 10
+                      }}
+                    >
+                      <Pagination aria-label="Page navigation example">
+                        <PaginationItem disabled={currentPage <= 0}>
+                          <PaginationLink
+                            onClick={(e) =>
+                              this.handleClick(e, currentPage - 1)
+                            }
+                            previous
+                            href="#"
+                          />
+                        </PaginationItem>
 
-                  {[...Array(this.pagesCount)].map((page, i) => (
-                    <PaginationItem active={i === currentPage} key={i}>
-                      <PaginationLink
-                        onClick={(e) => this.handleClick(e, i)}
-                        href="#"
-                      >
-                        {i + 1}
-                      </PaginationLink>
-                    </PaginationItem>
-                  ))}
+                        {[...Array(this.pagesCount)].map((page, i) => (
+                          <PaginationItem active={i === currentPage} key={i}>
+                            <PaginationLink
+                              onClick={(e) => this.handleClick(e, i)}
+                              href="#"
+                            >
+                              {i + 1}
+                            </PaginationLink>
+                          </PaginationItem>
+                        ))}
 
-                  <PaginationItem disabled={currentPage >= this.pagesCount - 1}>
-                    <PaginationLink
-                      onClick={(e) => this.handleClick(e, currentPage + 1)}
-                      next
-                      href="#"
-                    />
-                  </PaginationItem>
-                </Pagination>
+                        <PaginationItem
+                          disabled={currentPage >= this.pagesCount - 1}
+                        >
+                          <PaginationLink
+                            onClick={(e) =>
+                              this.handleClick(e, currentPage + 1)
+                            }
+                            next
+                            href="#"
+                          />
+                        </PaginationItem>
+                      </Pagination>
+                    </div>
+                  </React.Fragment>
+                ) : (
+                  <div style={{ textAlign: "center", paddingTop: 5 }}>
+                    <span>No Reviews Found</span>
+                  </div>
+                )}
               </div>
             </Col>
           </Row>

@@ -55,6 +55,7 @@ export default function (state = initialState, action) {
     case QUERY.CROSS_GENRE_AUTHOR:
     case QUERY.MOST_GENRE_AUTHOR:
     case DISCOVER.QUERY_BOOKS:
+    case SEARCH.SUBMIT_SEARCH:
       return { ...state, loading: true };
     case DISCOVER.UPDATE_RESULTS:
       return { ...state, discover_books: action.json, loading: false };

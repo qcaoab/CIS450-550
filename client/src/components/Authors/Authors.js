@@ -76,21 +76,29 @@ class _Authors extends React.Component {
             </div>
           ) : (
             <Row>
-              <Col lg={3} style={{ borderRight: "3px solid beige" }}>
-                <div className="h2" style={{ textAlign: "center" }}>
-                  {this.props.data.author_page_info
-                    ? author_info.NAME
-                    : "Anonymous"}
+              <Col
+                lg={3}
+                style={{
+                  borderRight: "3px solid beige",
+                  alignContent: "center"
+                }}
+              >
+                <div class="position-fixed" style={{ width: 240 }}>
+                  <div className="h2" style={{ textAlign: "center" }}>
+                    {this.props.data.author_page_info
+                      ? author_info.NAME
+                      : "Anonymous"}
+                  </div>
+                  <img
+                    src={
+                      author_info.IMAGE_URL
+                        ? author_info.IMAGE_URL
+                        : "https://s.gr-assets.com/assets/nophoto/user/u_200x266-e183445fd1a1b5cc7075bb1cf7043306.png"
+                    }
+                    alt="author image"
+                    style={{ width: "100%" }}
+                  />
                 </div>
-                <img
-                  src={
-                    author_info.IMAGE_URL
-                      ? author_info.IMAGE_URL
-                      : "https://s.gr-assets.com/assets/nophoto/user/u_200x266-e183445fd1a1b5cc7075bb1cf7043306.png"
-                  }
-                  alt="author image"
-                  style={{ width: "100%" }}
-                />
               </Col>
               <Col lg={9}>
                 {author_info.AUTHOR_DESC && (
