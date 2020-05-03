@@ -9,7 +9,7 @@ function* searchBooks() {
   let search = yield select(getSearchString);
   console.log(search);
   if (search) {
-    const json = yield fetch(`http://localhost:8081/sear`, {
+    const json = yield fetch(`http://localhost:8081/searchForBooks/${search}`, {
       method: "GET"
     }).then(
       (res) => {
@@ -45,7 +45,6 @@ function* searchBooks() {
       });
     }
   }
-
 }
 
 function* discoverQueryBooks() {
