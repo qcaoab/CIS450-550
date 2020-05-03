@@ -12,6 +12,7 @@ import {
 } from "reactstrap";
 import { toggleBookModal, toggleFavorite } from "../../redux/actions";
 import { connect } from "react-redux";
+import "../../style/Description.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 const _BookModal = (props) => {
@@ -77,8 +78,7 @@ const _BookModal = (props) => {
 
               <br />
               <br />
-              <span class="h5">Description</span>
-              <br />
+              <div class="h5">Description</div>
 
               <div style={{ textAlign: "center" }}>
                 <span>
@@ -101,15 +101,20 @@ const _BookModal = (props) => {
                     </Spinner>
                   </div>
                 ) : !props.data.invalid_author ? (
-                  <div style={{ textAlign: "left", paddingTop: 20 }}>
+                  <div style={{ textAlign: "left" }}>
                     <span class="h6">
                       Name: {props.data.author_page_info.NAME}
                     </span>
                     <br />
                     {props.data.author_page_info.AUTHOR_DESC && (
                       <React.Fragment>
-                        <div class="h6">Bio:</div>
-                        <div style={{ textAlign: "center" }}>
+                        <div class="h6" style={{ paddingTop: 5 }}>
+                          Biography:
+                        </div>
+                        <div
+                          className="description"
+                          style={{ textAlign: "center" }}
+                        >
                           {props.data.author_page_info.AUTHOR_DESC}
                         </div>
                       </React.Fragment>

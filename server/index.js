@@ -22,6 +22,7 @@ app.get("/scrapeAuthorInfo/:author_id", routes.scrapeAuthorInfo);
 app.get("/triviaQuery/:triviaQuery", routes.triviaQuery);
 app.get("/getAuthorBooks/:author_id", routes.getAuthorBooks);
 app.get("/getBookReviews/:book_id", routes.getBookReviews);
+app.get("/searchForBooks/:query", routes.searchForBooks);
 app.listen(8081, () => {
   console.log(`Server listening on PORT 8081`);
 });

@@ -880,6 +880,45 @@ function getBookReviews(req, res) {
     });
 }
 
+function searchForBooks(req, res) {
+  let conn; // Declared here for scoping purposes.
+  console.log(req.params.query, typeof req.params.query);
+  oracledb
+    .getConnection()
+    .then(function (c) {
+      console.log("Connected to database");
+      conn = c;
+      return conn.execute(
+        `SELECT * FROM BOOK WHERE TITLE LIKE '%${req.params.query}%'`,
+        {},
+        {
+          outFormat: oracledb.OBJECT,
+          maxRows: 3
+        }
+      );
+    })
+    .then(
+      function (result) {
+        console.log("Query executed");
+        res.json(result.rows);
+      },
+      function (err) {
+        console.log("Error occurred", err);
+      }
+    )
+    .then(function () {
+      if (conn) {
+        return conn.close();
+      }
+    })
+    .then(function () {
+      console.log("Connection closed");
+    })
+    .catch(function (err) {
+      console.log("Error closing connection", err);
+    });
+}
+
 // The exported functions, which can be accessed in index.js.
 module.exports = {
   randomBooks,
@@ -887,5 +926,6 @@ module.exports = {
   scrapeAuthorInfo,
   triviaQuery,
   getAuthorBooks,
-  getBookReviews
+  getBookReviews,
+  searchForBooks
 };

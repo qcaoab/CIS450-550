@@ -20,7 +20,7 @@ const initialState = {
   loading: false,
   search_results: [default_book_info, default_book_info2, default_book_info3],
   search_filters: null,
-  search_query: null,
+  search_query: "",
   favorites: {
     [default_book_info.BOOK_ID]: default_book_info,
     [default_book_info2.BOOK_ID]: default_book_info2,
@@ -70,8 +70,8 @@ export default function (state = initialState, action) {
     case SEARCH.UPDATE_FILTERS:
       return { ...state, filters: null };
     case SEARCH.UPDATE_QUERY:
-      const { query } = action.payload;
-      return { ...state, query };
+      const { search_query } = action.payload;
+      return { ...state, search_query };
 
     case SEARCH.UPDATE_RESULTS:
       return { ...state, search_results: action.json, loading: false };

@@ -1,26 +1,51 @@
-import { put, takeLatest, all } from "redux-saga/effects";
+import { put, takeLatest, all, select } from "redux-saga/effects";
 import { BOOK, QUERY, SEARCH, DISCOVER, AUTHOR } from "../actionTypes";
 import { executeQuery } from "../actions";
 
+const getSearchString = (state) => state.data.search_query;
+
 function* searchBooks() {
   console.log("Fetching");
-  const json = yield fetch(`http://localhost:8081/randomBooks/10`, {
-    method: "GET"
-  }).then(
-    (res) => {
-      return res.json();
-    },
-    (err) => {
-      console.log(err);
-      return err;
+  let search = yield select(getSearchString);
+  console.log(search);
+  if (search) {
+    const json = yield fetch(`http://localhost:8081/sear`, {
+      method: "GET"
+    }).then(
+      (res) => {
+        return res.json();
+      },
+      (err) => {
+        console.log(err);
+        return err;
+      }
+    );
+    if (json != "TypeError: Failed to fetch") {
+      yield put({
+        type: SEARCH.UPDATE_RESULTS,
+        json: json
+      });
     }
-  );
-  if (json != "TypeError: Failed to fetch") {
-    yield put({
-      type: SEARCH.UPDATE_RESULTS,
-      json: json
-    });
+  } else {
+    const json = yield fetch(`http://localhost:8081/randomBooks/10`, {
+      method: "GET"
+    }).then(
+      (res) => {
+        return res.json();
+      },
+      (err) => {
+        console.log(err);
+        return err;
+      }
+    );
+    if (json != "TypeError: Failed to fetch") {
+      yield put({
+        type: SEARCH.UPDATE_RESULTS,
+        json: json
+      });
+    }
   }
+
 }
 
 function* discoverQueryBooks() {
@@ -148,6 +173,7 @@ function* fetchAuthorBooks({ author_id }) {
     });
   }
 }
+
 function* fetchBookReviews({ book }) {
   console.log("Fetching");
   const json = yield fetch(
