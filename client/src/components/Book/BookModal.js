@@ -102,13 +102,13 @@ const _BookModal = (props) => {
                   </div>
                 ) : props.data.author_page_info.AUTHOR_ID ? (
                   <div style={{ textAlign: "left", paddingTop: 20 }}>
-                    <span class="h4">
+                    <span class="h6">
                       Name: {props.data.author_page_info.NAME}
                     </span>
                     <br />
                     {props.data.author_page_info.AUTHOR_DESC && (
                       <React.Fragment>
-                        <div class="h4">Bio:</div>
+                        <div class="h6">Bio:</div>
                         <div style={{ textAlign: "center" }}>
                           {props.data.author_page_info.AUTHOR_DESC}
                         </div>
