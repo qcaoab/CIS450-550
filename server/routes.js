@@ -7,6 +7,7 @@ function randomBooks(req, res) {
   let conn; // Declared here for scoping purposes.
   let empId = 1;
   console.log(req.params.num, typeof req.params.num);
+  let numOfBooks = req.params.num ? req.params.num : 10;
   oracledb
     .getConnection()
     .then(function (c) {
@@ -50,21 +51,19 @@ function randomBooks(req, res) {
 
 function popularBooks(req, res) {
   let conn; // Declared here for scoping purposes.
-  let empId = 1;
-  console.log(req.params.num, typeof req.params.num);
   oracledb
     .getConnection()
     .then(function (c) {
       console.log("Connected to database");
       conn = c;
       return conn.execute(
-        `SELECT * FROM (
-          SELECT book_id
-          FROM Review
-          GROUP BY book_id
-          ORDER BY COUNT(*) DESC
-      )
-      WHERE ROWNUM<10;
+        `SELECT *
+        FROM
+            (SELECT *
+             FROM BOOK
+             WHERE BOOK.TEXT_REVIEWS_COUNT IS NOT NULL
+             ORDER BY BOOK.TEXT_REVIEWS_COUNT DESC) result_set
+        WHERE ROWNUM <= 10
       `,
         {},
         {

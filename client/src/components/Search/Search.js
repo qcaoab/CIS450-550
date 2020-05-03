@@ -44,10 +44,8 @@ class _Search extends React.Component {
 
     return (
       <div>
-        <div style={{ paddingLeft: 20, paddingTop: 20 }}>
-        <div className="h2" style={{ paddingLeft: 10 }}>
-          Search
-          </div>
+        <div style={{ paddingLeft: 30, paddingTop: 20 }}>
+          <div className="h2">Search</div>
           <br />
 
           <Row>

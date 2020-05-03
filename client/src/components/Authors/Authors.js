@@ -34,10 +34,8 @@ class _Authors extends React.Component {
     const { currentPage } = this.state;
     return (
       <div>
-        <div style={{ paddingLeft: 20, paddingTop: 20 }}>
-        <div className="h2" style={{ paddingLeft: 10 }}>
-          Author
-          </div>
+        <div style={{ paddingLeft: 30, paddingTop: 20 }}>
+          <div className="h2">Author</div>
           <br />
           <Row>
             <Col lg={3} style={{ borderRight: "3px solid beige" }}>

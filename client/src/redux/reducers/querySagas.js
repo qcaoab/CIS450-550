@@ -1,5 +1,6 @@
 import { put, takeLatest, all } from "redux-saga/effects";
 import { BOOK, QUERY, SEARCH, DISCOVER } from "../actionTypes";
+import { executeQuery } from "../actions";
 
 function* searchBooks() {
   console.log("Fetching");
@@ -74,10 +75,62 @@ function* triviaPopularBooks() {
   });
 }
 
+function* executeQuerySaga({ query }) {
+  console.log("Fetching");
+  let url = "http://localhost:8081";
+  switch (query) {
+    case QUERY.POPULAR_BOOKS:
+      url = url + "/popularBooks";
+      break;
+    case QUERY.BEST_REVIEWS:
+      url = url + "/popularBooks";
+      break;
+    case QUERY.MOST_CONSISTENT_AUTHOR:
+      url = url + "/popularBooks";
+      break;
+    case QUERY.HIGHEST_RATED_BOOKS_PER_GENRE_YEAR:
+      url = url + "/popularBooks";
+      break;
+    case QUERY.MOST_CONTROVERSIAL_BOOKS:
+      url = url + "/popularBooks";
+      break;
+    case QUERY.ONE_HIT_WONDER:
+      url = url + "/popularBooks";
+      break;
+    case QUERY.PROLIFIC_AUTHOR:
+      url = url + "/popularBooks";
+      break;
+    case QUERY.CROSS_GENRE_AUTHOR:
+      url = url + "/popularBooks";
+      break;
+    case QUERY.MOST_GENRE_AUTHOR:
+      url = url + "/popularBooks";
+      break;
+  }
+  const json = yield fetch(url, {
+    method: "GET"
+  }).then(
+    (res) => {
+      return res.json();
+    },
+    (err) => {
+      console.log(err);
+      return err;
+    }
+  );
+
+  yield put({
+    type: QUERY.UPDATE_RESULTS,
+    json: json || [{ error: json.message }],
+    query: query
+  });
+}
+
 export default function* rootSaga() {
   yield all([
     yield takeLatest(SEARCH.SUBMIT_SEARCH, searchBooks),
     yield takeLatest(QUERY.POPULAR_BOOKS, triviaPopularBooks),
+    yield takeLatest(QUERY.EXECUTE_QUERY, executeQuerySaga),
     yield takeLatest(DISCOVER.QUERY_BOOKS, discoverQueryBooks)
   ]);
 }

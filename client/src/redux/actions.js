@@ -12,7 +12,6 @@ export const submitSearch = () => {
   return { type: SEARCH.SUBMIT_SEARCH };
 };
 
-
 export const toggleBookModal = () => {
   return {
     type: BOOK.TOGGLE_MODAL
@@ -52,4 +51,8 @@ export const getPopularBooks = () => {
 
 export const discoverBooks = () => {
   return { type: DISCOVER.QUERY_BOOKS };
+};
+
+export const executeQuery = (query) => {
+  return { type: QUERY.EXECUTE_QUERY, query: query };
 };
