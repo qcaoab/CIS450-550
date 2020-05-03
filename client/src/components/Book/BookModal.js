@@ -166,10 +166,7 @@ const _BookModal = (props) => {
             color="primary"
             onClick={props.toggleBookModal}
             href={"/authors"}
-            disabled={
-              props.data.author_loading ||
-              props.data.author_page_info.invalid_author
-            }
+            disabled={props.data.author_loading || props.data.invalid_author}
           >
             Go to Author Page
           </Button>
