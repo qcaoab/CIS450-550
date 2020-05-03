@@ -84,7 +84,10 @@ const _FavoriteCarouselRow = (props) => {
               class="img__img"
             />
             <div class="img_star">
-              <FontAwesomeIcon icon={faStar} style={{ color: "#FEFF00" }} />
+              <FontAwesomeIcon
+                icon={faStar}
+                style={{ color: "#FEFF00" }}
+              />
             </div>
 
             <p class="img__description">{props.data[2].TITLE}</p>

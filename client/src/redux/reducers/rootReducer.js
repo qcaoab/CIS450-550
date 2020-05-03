@@ -22,7 +22,7 @@ const initialState = {
   book_modal_info: default_book_info,
   author_page_info: default_author_info1,
   author_books: [default_book_info, default_book_info2, default_book_info3],
-  discover_books: [default_discover],
+  discover_books: default_discover,
   trivia_results: {
     [QUERY.POPULAR_BOOKS]: []
   }

@@ -33,11 +33,12 @@ function* discoverQueryBooks() {
       return err;
     }
   );
-
-  yield put({
-    type: DISCOVER.UPDATE_RESULTS,
-    json: json || [{ error: json.message }]
-  });
+  if (json != "TypeError: Failed to fetch") {
+    yield put({
+      type: DISCOVER.UPDATE_RESULTS,
+      json: json
+    });
+  }
 }
 
 // function* queryPopularBooks() {

@@ -11,22 +11,15 @@ class _Trivia extends React.Component {
   render() {
     return (
       <div className="Search">
-        <PageNavbar active="trivia" />
-        <div className="container search-container">
-          <Jumbotron style={{ backgroundColor: "#FFFFF3", paddingTop: 30 }}>
-            <div className="h2">Trivia</div>
-            <br />
+        <div style={{ paddingLeft: 20, paddingTop: 20 }}>
+        <div className="h2" style={{ paddingLeft: 10 }}>
+          Trivia
+          </div>
+          <br />
 
-            <Row>
-              <TriviaSection />
-            </Row>
-            {/* <Row>
-              <TriviaSection />
-            </Row>
-            <Row>
-              <TriviaSection />
-            </Row> */}
-          </Jumbotron>
+          <Row>
+            <TriviaSection />
+          </Row>
         </div>
       </div>
     );
