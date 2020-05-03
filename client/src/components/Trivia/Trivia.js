@@ -13,9 +13,23 @@ class _Trivia extends React.Component {
     return (
       <div className="Search">
         <div style={{ paddingLeft: 30, paddingTop: 20 }}>
-          <div className="h2">Trivia</div>
-          <br />
-
+          <div
+            className="h2"
+            style={{
+              position: "fixed",
+              zIndex: 2,
+              backgroundColor: "#fffff3",
+              width: "100%",
+              height: 90,
+              marginTop: -40
+            }}
+          >
+            <p></p>
+          </div>
+          <div className="h2" style={{ position: "fixed", zIndex: 2 }}>
+            Trivia
+          </div>
+          <div style={{ height: 65 }}></div>
           <Col>
             <BookTriviaSection query={QUERY.POPULAR_BOOKS} />
           </Col>

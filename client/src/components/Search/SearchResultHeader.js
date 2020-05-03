@@ -16,7 +16,11 @@ const _SearchResultsHeader = (props) => (
           onChange={props.updateSearchQuery}
         />
         <InputGroupAddon addonType="append">
-          <Button color="primary" onClick={props.submitSearch}>
+          <Button
+            color="primary"
+            onClick={props.submitSearch}
+            style={{ zIndex: 0 }}
+          >
             <FontAwesomeIcon icon={faSearch} />
           </Button>
         </InputGroupAddon>

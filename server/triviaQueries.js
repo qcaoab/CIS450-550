@@ -29,7 +29,7 @@ module.exports = {
     `,
   [QUERY.MOST_CONSISTENT_AUTHOR]: `SELECT name, average_rating, rating_count
   FROM Author
-  WHERE average_rating =5 and rating_count>50
+  WHERE average_rating >4 and rating_count>50
   ORDER BY average_rating DESC 
 `,
   [QUERY.HIGHEST_RATED_BOOKS_PER_GENRE_YEAR]: `WITH Book_Rating(book_id, title, avg_rating) AS

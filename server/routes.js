@@ -285,11 +285,11 @@ function searchForBooks(req, res) {
       console.log("Connected to database");
       conn = c;
       return conn.execute(
-        `SELECT * FROM BOOK WHERE TITLE LIKE '%${req.params.query}%'`,
+        `SELECT * FROM BOOK2 WHERE TITLE LIKE '%${req.params.query}%'`,
         {},
         {
           outFormat: oracledb.OBJECT,
-          maxRows: 3
+          maxRows: 20
         }
       );
     })
