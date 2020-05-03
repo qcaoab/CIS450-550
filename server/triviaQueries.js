@@ -13,7 +13,7 @@ const QUERY = {
 module.exports = {
   [QUERY.POPULAR_BOOKS]: `SELECT * 
     FROM
-        (SELECT title, text_review_count
+        (SELECT title, text_reviews_count
         FROM BOOK
         WHERE BOOK.TEXT_REVIEWS_COUNT IS NOT NULL
         ORDER BY BOOK.TEXT_REVIEWS_COUNT DESC) result_set
