@@ -1,7 +1,7 @@
 import { SEARCH, BOOK, FAVORITE, QUERY, DISCOVER, AUTHOR } from "./actionTypes";
 
 export const updateSearchQuery = (action) => {
-  const search_query = action.tRarget.value;
+  const search_query = action.target.value;
   return {
     type: SEARCH.UPDATE_QUERY,
     payload: { search_query }
