@@ -13,21 +13,24 @@ const QUERY = {
 module.exports = {
   [QUERY.POPULAR_BOOKS]: `SELECT * 
     FROM
-        (SELECT *
+        (SELECT title, text_review_count
         FROM BOOK
         WHERE BOOK.TEXT_REVIEWS_COUNT IS NOT NULL
         ORDER BY BOOK.TEXT_REVIEWS_COUNT DESC) result_set
     WHERE ROWNUM <= 10`,
-  [QUERY.BEST_REVIEWS]: `SELECT * FROM(
-    SELECT review_text
+  [QUERY.BEST_REVIEWS]: `SELECT book.title, review_text, n_votes FROM
+  (
+    SELECT book_id, n_votes, review_text
     FROM Review
     ORDER BY n_votes DESC
+    ) x JOIN book on x.book_id=book.book_id
+    WHERE ROWNUM<10             
     )
     WHERE ROWNUM<10`,
-  [QUERY.MOST_CONSISTENT_AUTHOR]: `SELECT NAME, 
+  [QUERY.MOST_CONSISTENT_AUTHOR]: `SELECT name, average_rating, rating_count
   FROM Author
-  WHERE average_rating >=4 and rating_count>50
-  ORDER BY average_rating DESC
+  WHERE average_rating =5 and rating_count>50
+  ORDER BY average_rating DESC 
 `,
   [QUERY.HIGHEST_RATED_BOOKS_PER_GENRE_YEAR]: `WITH Book_Rating(book_id, title, avg_rating) AS
   (SELECT Book.book_id, Book.title, AVG(Review.rating)
@@ -46,7 +49,7 @@ module.exports = {
   [QUERY.MOST_CONTROVERSIAL_BOOKS]: `SELECT title, STDDEV(rating) AS stdev
   FROM Book JOIN Review ON Book.book_id = Review.book_id 
   GROUP BY Book.book_id, title
-  ORDER BY STDDEV(rating) DESC
+  ORDER BY STDDEV(rating) DESC   
   `,
   [QUERY.ONE_HIT_WONDER]: `SELECT name, title
   FROM Book JOIN AuthorOf ON Book.book_id = AuthorOf.book_id
@@ -55,41 +58,44 @@ module.exports = {
   GROUP BY Author.author_id, name, title
   HAVING COUNT(*) >= 1
   `,
-  [QUERY.PROLIFIC_AUTHOR]: `WITH Highly_Rated_Books(book_id) AS
-  (SELECT book.book_id
-  FROM Book  
-  WHERE average_rating>4)
-SELECT author_id 
-FROM Highly_Rated_Books JOIN AuthorOf ON Highly_Rated_Books.book_id = AuthorOf.book_id
-JOIN Genre ON Highly_Rated_Books.book_id = Genre.book_id
-GROUP BY author_id, genre_name
-HAVING COUNT(*) >=3               
-`,
-  [QUERY.CROSS_GENRE_AUTHOR]: `WITH Author_Genre(name, genre_name, num) AS
+  [QUERY.PROLIFIC_AUTHOR]: `WITH Author_Genre(name, genre_name, num) AS
   (SELECT name, genre_name, COUNT(*)
   FROM Author
   JOIN AuthorOf ON Author.author_id = AuthorOf.author_id
   JOIN Genre ON AuthorOf.book_id = Genre.book_id
   GROUP BY Author.author_id, genre_name, name )
-SELECT name, genre_name
+SELECT name, genre_name, num
 FROM Author_Genre G1
 WHERE num >= ALL
     (SELECT num
      FROM Author_Genre G2
-     WHERE G1.genre_name = G2.genre_name)
+     WHERE G1.genre_name = G2.genre_name)       
+`,
+  [QUERY.CROSS_GENRE_AUTHOR]: `WITH Highly_Rated_Books(book_id, rating) AS
+  (SELECT book.book_id, average_rating
+  FROM Book  
+  WHERE average_rating>4)
+SELECT Author.name FROM(
+  SELECT Authorof.author_id
+  FROM Highly_Rated_Books JOIN AuthorOf ON Highly_Rated_Books.book_id = AuthorOf.book_id
+  JOIN bookgenre ON Highly_Rated_Books.book_id = bookgenre.book_id 
+  GROUP BY Authorof.author_id
+    HAVING COUNT(*) >=3  
+) x 
+JOIN Author ON Author.author_id=x.author_id   
 `,
   [QUERY.MOST_GENRE_AUTHOR]: `WITH Author_Genre(author_id, genre_name,name) AS
-      (SELECT Author.author_id, Genre.genre_name, Author.name
-      FROM Author
-      JOIN AuthorOf ON Author.author_id = AuthorOf.author_id
-      JOIN Genre ON AuthorOf.book_id = Genre.book_id
-      GROUP BY Author.author_id, Genre.genre_name,Author.name)
-    SELECT author_id,Author_Genre.name,count(*)
-    FROM Author_Genre 
-    GROUP BY Author_Genre.name, Author_Genre.author_id
-    HAVING COUNT(*) >= ALL
-            (SELECT COUNT(*)
-            FROM Author_Genre
-            GROUP BY author_id)
+  (SELECT Author.author_id, Genre.genre_name, Author.name
+  FROM Author
+  JOIN AuthorOf ON Author.author_id = AuthorOf.author_id
+  JOIN Genre ON AuthorOf.book_id = Genre.book_id
+  GROUP BY Author.author_id, Genre.genre_name,Author.name)
+SELECT Author_Genre.name,count(*)
+FROM Author_Genre 
+GROUP BY Author_Genre.author_id,Author_Genre.name
+HAVING COUNT(*) >= ALL
+        (SELECT COUNT(*)
+        FROM Author_Genre
+        GROUP BY author_id)
     `
 };
