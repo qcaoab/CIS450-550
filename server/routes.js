@@ -40,7 +40,11 @@ async function scrapeAuthor(author_id) {
   return data;
 }
 
-oracledb.createPool(config);
+async function init() {
+  await oracledb.createPool(config);
+  console.log("Connection pool started");
+}
+init();
 
 function randomBooks(req, res) {
   let conn; // Declared here for scoping purposes.

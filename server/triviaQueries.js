@@ -37,18 +37,19 @@ module.exports = {
    FROM Book 
     JOIN Review ON Book.book_id = Review.book_id
    GROUP BY Book.book_id, Book.title)
-  SELECT FLOOR(Book.publication_year/10)*10 AS decade, Genre.genre_name, Book_Rating.title
+  SELECT FLOOR(Book.publication_year/10)*10 AS decade, Genre.genre_name, Book_Rating.title, 
    FROM Book, Book_Rating
     JOIN Genre ON Book_Rating.book_id = Genre.book_id
     WHERE avg_rating >= ALL
       (SELECT avg_rating
        FROM Book_Rating)
        and Book.book_id=Book_Rating.book_id
- GROUP BY FLOOR(Book.publication_year/10), Genre.genre_name, Book_Rating.title            
+ GROUP BY FLOOR(Book.publication_year/10), Genre.genre_name, Book_Rating.title     
 `,
   [QUERY.MOST_CONTROVERSIAL_BOOKS]: `SELECT title, STDDEV(rating) AS stdev
   FROM Book JOIN Review ON Book.book_id = Review.book_id 
   GROUP BY Book.book_id, title
+  HAVING STDDEV(rating) > 0
   ORDER BY STDDEV(rating) DESC   
   `,
   [QUERY.ONE_HIT_WONDER]: `SELECT name, title
@@ -56,7 +57,7 @@ module.exports = {
   JOIN Author ON AuthorOf.author_id = Author.author_id
   WHERE Book.average_rating > Author.average_rating
   GROUP BY Author.author_id, name, title
-  HAVING COUNT(*) >= 1
+  HAVING COUNT(*) = 1
   `,
   [QUERY.PROLIFIC_AUTHOR]: `WITH Author_Genre(name, genre_name, num) AS
   (SELECT name, genre_name, COUNT(*)
