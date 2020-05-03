@@ -54,7 +54,7 @@ function randomBooks(req, res) {
       conn = c;
       return conn.execute(
         `SELECT *
-        FROM BOOK
+        FROM BOOK2
         SAMPLE(${req.params.num})`,
         {},
         {
@@ -88,33 +88,45 @@ function randomBooks(req, res) {
     });
 }
 
-function popularBooks(req, res) {
+function getAuthorInfo(req, res) {
   let conn; // Declared here for scoping purposes.
+  console.log(req.params.book_id, typeof req.params.book_id);
+  let book_id = req.params.book_id;
   oracledb
     .getConnection()
     .then(function (c) {
       console.log("Connected to database");
       conn = c;
       return conn.execute(
-        `SELECT *
-        FROM
-            (SELECT *
-             FROM BOOK
-             WHERE BOOK.TEXT_REVIEWS_COUNT IS NOT NULL
-             ORDER BY BOOK.TEXT_REVIEWS_COUNT DESC) result_set
-        WHERE ROWNUM <= 10
+        `
+        SELECT *
+        FROM AUTHOR
+        WHERE AUTHOR_ID IN 
+        (SELECT AUTHOR_ID FROM AUTHOROF WHERE BOOK_ID = ${book_id})
       `,
         {},
         {
           outFormat: oracledb.OBJECT,
-          maxRows: 10
+          maxRows: 1
         }
       );
     })
     .then(
       function (result) {
         console.log("Query executed");
-        res.json(result.rows);
+        if (result.rows[0]) {
+          let author_id = result.rows[0].AUTHOR_ID;
+          console.log(author_id);
+          scrapeAuthor(author_id).then((x) =>
+            res.json({ ...result.rows[0], ...x })
+          );
+        } else {
+          res.json({
+            AUTHOR_ID: 0,
+            NAME: "Anonymous"
+          });
+        }
+
         // resolve(result.rows[0]);
       },
       function (err) {
@@ -741,66 +753,6 @@ function getBooksByAuthor(req, res) {
     });
 }
 
-function getAuthorInfo(req, res) {
-  let conn; // Declared here for scoping purposes.
-  console.log(req.params.book_id, typeof req.params.book_id);
-  let book_id = req.params.book_id;
-  oracledb
-    .getConnection()
-    .then(function (c) {
-      console.log("Connected to database");
-      conn = c;
-      return conn.execute(
-        `
-        SELECT *
-        FROM AUTHOR
-        WHERE AUTHOR_ID IN 
-        (SELECT AUTHOR_ID FROM AUTHOROF WHERE BOOK_ID = ${book_id})
-      `,
-        {},
-        {
-          outFormat: oracledb.OBJECT,
-          maxRows: 1
-        }
-      );
-    })
-    .then(
-      function (result) {
-        console.log("Query executed");
-        if (result.rows[0]) {
-          let author_id = result.rows[0].AUTHOR_ID;
-          console.log(author_id);
-          scrapeAuthor(author_id).then((x) =>
-            res.json({ ...result.rows[0], ...x })
-          );
-        } else {
-          res.json({
-            AUTHOR_ID: 0,
-            NAME: "Anonymous"
-          });
-        }
-
-        // resolve(result.rows[0]);
-      },
-      function (err) {
-        console.log("Error occurred", err);
-      }
-    )
-    .then(function () {
-      if (conn) {
-        // If conn assignment worked, need to close.
-        return conn.close();
-      }
-    })
-    .then(function () {
-      console.log("Connection closed");
-    })
-    .catch(function (err) {
-      // If error during close, just log.
-      console.log("Error closing connection", err);
-    });
-}
-
 function scrapeAuthorInfo(req, res) {
   let conn; // Declared here for scoping purposes.
   console.log(req.params.author_id, typeof req.params.author_id);
@@ -847,11 +799,93 @@ function triviaQuery(req, res) {
     });
 }
 
+function getAuthorBooks(req, res) {
+  let conn; // Declared here for scoping purposes.
+  console.log(req.params.author_id, typeof req.params.author_id);
+  oracledb
+    .getConnection()
+    .then(function (c) {
+      console.log("Connected to database");
+      conn = c;
+      return conn.execute(
+        `WITH BOOK_LIST AS (
+          SELECT BOOK_ID FROM AUTHOROF WHERE AUTHOR_ID = ${req.params.author_id}
+          )
+        SELECT * FROM BOOK2 NATURAL JOIN BOOK_LIST`,
+        {},
+        {
+          outFormat: oracledb.OBJECT,
+          maxRows: 20
+        }
+      );
+    })
+    .then(
+      function (result) {
+        console.log("Query executed");
+        res.json(result.rows);
+      },
+      function (err) {
+        console.log("Error occurred", err);
+      }
+    )
+    .then(function () {
+      if (conn) {
+        return conn.close();
+      }
+    })
+    .then(function () {
+      console.log("Connection closed");
+    })
+    .catch(function (err) {
+      console.log("Error closing connection", err);
+    });
+}
+
+function getBookReviews(req, res) {
+  let conn; // Declared here for scoping purposes.
+  console.log(req.params.book_id, typeof req.params.book_id);
+  oracledb
+    .getConnection()
+    .then(function (c) {
+      console.log("Connected to database");
+      conn = c;
+      return conn.execute(
+        `SELECT * FROM REVIEW WHERE BOOK_ID = '${req.params.book_id}'`,
+        {},
+        {
+          outFormat: oracledb.OBJECT,
+          maxRows: 3
+        }
+      );
+    })
+    .then(
+      function (result) {
+        console.log("Query executed");
+        res.json(result.rows);
+      },
+      function (err) {
+        console.log("Error occurred", err);
+      }
+    )
+    .then(function () {
+      if (conn) {
+        return conn.close();
+      }
+    })
+    .then(function () {
+      console.log("Connection closed");
+    })
+    .catch(function (err) {
+      console.log("Error closing connection", err);
+    });
+}
+
 // The exported functions, which can be accessed in index.js.
 module.exports = {
   randomBooks,
-  popularBooks,
   getAuthorInfo,
   scrapeAuthorInfo,
-  triviaQuery
+  triviaQuery,
+  getAuthorBooks,
+  getBookReviews
 };

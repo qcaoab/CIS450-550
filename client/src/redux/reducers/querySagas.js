@@ -15,11 +15,12 @@ function* searchBooks() {
       return err;
     }
   );
-
-  yield put({
-    type: SEARCH.UPDATE_RESULTS,
-    json: json || [{ error: json.message }]
-  });
+  if (json != "TypeError: Failed to fetch") {
+    yield put({
+      type: SEARCH.UPDATE_RESULTS,
+      json: json
+    });
+  }
 }
 
 function* discoverQueryBooks() {
@@ -68,12 +69,13 @@ function* triviaPopularBooks() {
       return err;
     }
   );
-
-  yield put({
-    type: QUERY.UPDATE_RESULTS,
-    json: json || [{ error: json.message }],
-    query: QUERY.POPULAR_BOOKS
-  });
+  if (json != "TypeError: Failed to fetch") {
+    yield put({
+      type: QUERY.UPDATE_RESULTS,
+      json: json,
+      query: QUERY.POPULAR_BOOKS
+    });
+  }
 }
 
 function* executeQuerySaga({ query }) {
@@ -90,12 +92,13 @@ function* executeQuerySaga({ query }) {
       return err;
     }
   );
-
-  yield put({
-    type: QUERY.UPDATE_RESULTS,
-    json: json || [{ error: json.message }],
-    query: query
-  });
+  if (json != "TypeError: Failed to fetch") {
+    yield put({
+      type: QUERY.UPDATE_RESULTS,
+      json: json,
+      query: query
+    });
+  }
 }
 
 function* fetchAuthorData({ book }) {
@@ -114,11 +117,59 @@ function* fetchAuthorData({ book }) {
       return err;
     }
   );
+  if (json != "TypeError: Failed to fetch") {
+    yield put({
+      type: AUTHOR.UPDATE,
+      json: json
+    });
+  }
+}
 
-  yield put({
-    type: AUTHOR.UPDATE,
-    json: json || [{ error: json.message }]
-  });
+function* fetchAuthorBooks({ author_id }) {
+  console.log("Fetching");
+  const json = yield fetch(
+    `http://localhost:8081/getAuthorBooks/${author_id}`,
+    {
+      method: "GET"
+    }
+  ).then(
+    (res) => {
+      return res.json();
+    },
+    (err) => {
+      console.log(err);
+      return err;
+    }
+  );
+  if (json != "TypeError: Failed to fetch") {
+    yield put({
+      type: AUTHOR.UPDATE_BOOKS,
+      json: json
+    });
+  }
+}
+function* fetchBookReviews({ book }) {
+  console.log("Fetching");
+  const json = yield fetch(
+    `http://localhost:8081/getBookReviews/${book.BOOK_ID}`,
+    {
+      method: "GET"
+    }
+  ).then(
+    (res) => {
+      return res.json();
+    },
+    (err) => {
+      console.log(err);
+      return err;
+    }
+  );
+  if (json != "TypeError: Failed to fetch") {
+    yield put({
+      type: BOOK.UPDATE_REVIEWS,
+      json: json
+    });
+  }
 }
 
 export default function* rootSaga() {
@@ -127,6 +178,8 @@ export default function* rootSaga() {
     yield takeLatest(QUERY.POPULAR_BOOKS, triviaPopularBooks),
     yield takeLatest(QUERY.EXECUTE_QUERY, executeQuerySaga),
     yield takeLatest(DISCOVER.QUERY_BOOKS, discoverQueryBooks),
-    yield takeLatest(BOOK.UPDATE_SHOW_MODAL, fetchAuthorData)
+    yield takeLatest(BOOK.UPDATE_SHOW_MODAL, fetchAuthorData),
+    yield takeLatest(AUTHOR.GET_BOOKS, fetchAuthorBooks),
+    yield takeLatest(BOOK.UPDATE_SHOW_MODAL, fetchBookReviews)
   ]);
 }

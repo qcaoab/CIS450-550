@@ -100,7 +100,7 @@ const _BookModal = (props) => {
                       <span className="sr-only">Loading...</span>
                     </Spinner>
                   </div>
-                ) : props.data.author_page_info.AUTHOR_ID ? (
+                ) : !props.data.invalid_author ? (
                   <div style={{ textAlign: "left", paddingTop: 20 }}>
                     <span class="h6">
                       Name: {props.data.author_page_info.NAME}
@@ -123,13 +123,34 @@ const _BookModal = (props) => {
               </div>
               <div style={{ paddingTop: 20 }}>
                 <span class="h5">Reviews</span>
-                <div style={{ textAlign: "center", paddingTop: 5 }}>
-                  <p>
-                    {
-                      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Velit eligendi deserunt exercitationem, voluptate, odit sunt necessitatibus iusto neque unde debitis dolor sit doloribus rerum perspiciatis ea labore quasi esse. Itaque."
-                    }
-                  </p>
-                </div>
+                {props.data.review_loading ? (
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center"
+                    }}
+                  >
+                    <Spinner animation="border" role="status">
+                      <span className="sr-only">Loading...</span>
+                    </Spinner>
+                  </div>
+                ) : props.data.book_modal_review &&
+                  props.data.book_modal_review.length ? (
+                  <div style={{ textAlign: "left", paddingTop: 20 }}>
+                    {props.data.book_modal_review.map((item) => (
+                      <div>
+                        <div>{item.REVIEW_TEXT}</div>
+                        <div>
+                          Rating: {item.RATING} Votes: {item.N_VOTES}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div style={{ textAlign: "center", paddingTop: 5 }}>
+                    <span>No Reviews Found</span>
+                  </div>
+                )}
                 <br />
               </div>
             </Col>
@@ -142,7 +163,7 @@ const _BookModal = (props) => {
             href={"/authors"}
             disabled={
               props.data.author_loading ||
-              props.data.author_page_info.AUTHOR_ID == 0
+              props.data.author_page_info.invalid_author
             }
           >
             Go to Author Page
@@ -171,7 +192,13 @@ const mapStateToProps = (state) => {
   return { data };
 };
 
-export const BookModal = connect(mapStateToProps, {
-  toggleBookModal,
-  toggleFavorite
-})(_BookModal);
+const mapDispatchToProps = (dispatch) => ({
+  toggleBookModal: () => dispatch(toggleBookModal()),
+  toggleFavorite: () => dispatch(toggleFavorite()),
+  dispatch
+});
+
+export const BookModal = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(_BookModal);

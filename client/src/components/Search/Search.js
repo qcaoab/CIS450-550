@@ -49,7 +49,7 @@ class _Search extends React.Component {
           <br />
 
           <Row>
-            {/* <Col lg={2} style={{ borderRight: "3px solid beige" }}></Col> */}
+            <Col lg={1}></Col>
             <Col lg={10}>
               <div style={{ paddingTop: 5 }}>
                 <SearchResultsHeader />

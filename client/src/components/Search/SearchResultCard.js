@@ -1,5 +1,5 @@
 import React from "react";
-
+import "../../style/Description.css";
 import { Card, CardBody, Row, Col } from "../../template";
 import { connect } from "react-redux";
 import { updateAndShowBookModal } from "../../redux/actions";
@@ -40,7 +40,7 @@ const _SearchResultsCard = (props) => (
                 }/5`}
               {/* <span className="mx-2">·</span> */}
             </div>
-            <p className="mb-0">
+            <p className="mb-0 description">
               {props.book_info.DESCRIPTION
                 ? props.book_info.DESCRIPTION
                 : "No Description Available."}
