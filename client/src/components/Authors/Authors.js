@@ -1,12 +1,16 @@
 import React from "react";
-import PageNavbar from "../PageNavbar";
-import SearchRow from "../Search/SearchRow";
-import "../../style/Search.css";
 import { connect } from "react-redux";
-import { updateSearchQuery } from "../../redux/actions";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { SearchResultsCard } from "../Search/SearchResultCard";
-import { Row, Col, Spinner } from "reactstrap";
+import {
+  Row,
+  Col,
+  Spinner,
+  Pagination,
+  PaginationItem,
+  PaginationLink
+} from "reactstrap";
+import { getAuthorBooks } from "../../redux/actions";
 
 class _Authors extends React.Component {
   constructor() {
@@ -18,6 +22,11 @@ class _Authors extends React.Component {
       currentPage: 0
     };
   }
+  componentDidMount() {
+    this.props.dispatch(
+      getAuthorBooks(this.props.data.author_page_info.AUTHOR_ID)
+    );
+  }
   handleClick(e, index) {
     e.preventDefault();
 
@@ -28,7 +37,7 @@ class _Authors extends React.Component {
 
   render() {
     this.pagesCount = Math.ceil(
-      this.props.data.search_results.length / this.pageSize
+      this.props.data.author_books.length / this.pageSize
     );
 
     const { currentPage } = this.state;
@@ -39,7 +48,7 @@ class _Authors extends React.Component {
         <div style={{ paddingLeft: 30, paddingTop: 20 }}>
           <div className="h2">Author</div>
           <br />
-          {this.props.data.author_loading ? (
+          {0 && this.props.data.author_loading ? (
             <div
               style={{
                 display: "flex",
@@ -95,9 +104,8 @@ class _Authors extends React.Component {
                   <span class="h5">
                     Average Rating:{" "}
                     {author_info.AVERAGE_RATING
-                      ? author_info.AVERAGE_RATING
+                      ? author_info.AVERAGE_RATING + "/5"
                       : "NA"}
-                    /5
                   </span>
                   <span className="mx-2">·</span>
                   <span class="h5">
@@ -112,19 +120,84 @@ class _Authors extends React.Component {
                       : "NA"}
                   </span>
                 </div>
-                <span class="h4">Books</span>
-                {this.props.data.author_books
-                  ? this.props.data.author_books
+                <div class="h4">Books</div>
+                {this.props.data.author_books_loading ? (
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center"
+                    }}
+                  >
+                    <Spinner animation="border" role="status">
+                      <span className="sr-only">Loading...</span>
+                    </Spinner>
+                  </div>
+                ) : this.props.data.author_books &&
+                  this.props.data.author_books.length ? (
+                  <React.Fragment>
+                    {this.props.data.author_books
                       .slice(
                         currentPage * this.pageSize,
                         (currentPage + 1) * this.pageSize
                       )
-                      .map((obj) => <SearchResultsCard book_info={obj} />)
-                  : "No Books Found"}
+                      .map((obj) => (
+                        <SearchResultsCard book_info={obj} />
+                      ))}
+                    <div
+                      className="pagination-wrapper"
+                      style={{
+                        justifyContent: "center",
+                        display: "flex",
+                        paddingTop: 10
+                      }}
+                    >
+                      <Pagination aria-label="Page navigation example">
+                        <PaginationItem disabled={currentPage <= 0}>
+                          <PaginationLink
+                            onClick={(e) =>
+                              this.handleClick(e, currentPage - 1)
+                            }
+                            previous
+                            href="#"
+                          />
+                        </PaginationItem>
+
+                        {[...Array(this.pagesCount)].map((page, i) => (
+                          <PaginationItem active={i === currentPage} key={i}>
+                            <PaginationLink
+                              onClick={(e) => this.handleClick(e, i)}
+                              href="#"
+                            >
+                              {i + 1}
+                            </PaginationLink>
+                          </PaginationItem>
+                        ))}
+
+                        <PaginationItem
+                          disabled={currentPage >= this.pagesCount - 1}
+                        >
+                          <PaginationLink
+                            onClick={(e) =>
+                              this.handleClick(e, currentPage + 1)
+                            }
+                            next
+                            href="#"
+                          />
+                        </PaginationItem>
+                      </Pagination>
+                    </div>
+                  </React.Fragment>
+                ) : (
+                  <div style={{ textAlign: "center", paddingTop: 5 }}>
+                    <span>No Books Found</span>
+                  </div>
+                )}
               </Col>
             </Row>
           )}
         </div>
+        <br />
+        <br />
       </div>
     );
   }
@@ -134,4 +207,4 @@ const mapStateToProps = (state) => {
   const { data } = state;
   return { data };
 };
-export default connect(mapStateToProps, { updateSearchQuery })(_Authors);
+export default connect(mapStateToProps, null)(_Authors);

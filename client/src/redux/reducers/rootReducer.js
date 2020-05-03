@@ -35,7 +35,11 @@ const initialState = {
   trivia_results: {
     [QUERY.POPULAR_BOOKS]: []
   },
-  author_loading: false
+  author_loading: false,
+  invalid_author: false,
+  author_books_loading: false,
+  review_loading: false,
+  book_modal_review: []
 };
 
 export default function (state = initialState, action) {
@@ -108,13 +112,39 @@ export default function (state = initialState, action) {
         ...state,
         book_modal_info: action.book,
         book_modal_visible: true,
-        author_loading: true
+        author_loading: true,
+        review_loading: true
       };
     case AUTHOR.UPDATE:
+      if (action.json.AUTHOR_ID == 0) {
+        return {
+          ...state,
+          author_loading: false,
+          invalid_author: true
+        };
+      } else {
+        return {
+          ...state,
+          author_loading: false,
+          invalid_author: false,
+          author_page_info: action.json
+        };
+      }
+    case AUTHOR.GET_BOOKS:
+      return { ...state, author_books_loading: true };
+    case AUTHOR.UPDATE_BOOKS:
       return {
         ...state,
-        author_loading: false,
-        author_page_info: action.json
+        author_books_loading: false,
+        author_books: action.json
+      };
+    case BOOK.GET_REVIEWS:
+      return { ...state, review_loading: true };
+    case BOOK.UPDATE_REVIEWS:
+      return {
+        ...state,
+        review_loading: false,
+        book_modal_review: action.json
       };
     case BOOK.SHOW_MODAL:
       return { ...state, book_modal_visible: true };

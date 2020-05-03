@@ -1,4 +1,4 @@
-import { SEARCH, BOOK, FAVORITE, QUERY, DISCOVER } from "./actionTypes";
+import { SEARCH, BOOK, FAVORITE, QUERY, DISCOVER, AUTHOR } from "./actionTypes";
 
 export const updateSearchQuery = (action) => {
   const search_query = action.tRarget.value;
@@ -55,4 +55,12 @@ export const discoverBooks = () => {
 
 export const executeQuery = (query) => {
   return { type: QUERY.EXECUTE_QUERY, query: query };
+};
+
+export const getAuthorBooks = (author_id) => {
+  return { type: AUTHOR.GET_BOOKS, author_id };
+};
+
+export const getBookReviews = (book_id) => {
+  return { type: BOOK.GET_REVIEWS, book_id };
 };

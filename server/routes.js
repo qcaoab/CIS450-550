@@ -54,60 +54,12 @@ function randomBooks(req, res) {
       conn = c;
       return conn.execute(
         `SELECT *
-        FROM BOOK
+        FROM BOOK2
         SAMPLE(${req.params.num})`,
         {},
         {
           outFormat: oracledb.OBJECT,
           maxRows: parseInt(req.params.num)
-        }
-      );
-    })
-    .then(
-      function (result) {
-        console.log("Query executed");
-        res.json(result.rows);
-        // resolve(result.rows[0]);
-      },
-      function (err) {
-        console.log("Error occurred", err);
-      }
-    )
-    .then(function () {
-      if (conn) {
-        // If conn assignment worked, need to close.
-        return conn.close();
-      }
-    })
-    .then(function () {
-      console.log("Connection closed");
-    })
-    .catch(function (err) {
-      // If error during close, just log.
-      console.log("Error closing connection", err);
-    });
-}
-
-function popularBooks(req, res) {
-  let conn; // Declared here for scoping purposes.
-  oracledb
-    .getConnection()
-    .then(function (c) {
-      console.log("Connected to database");
-      conn = c;
-      return conn.execute(
-        `SELECT *
-        FROM
-            (SELECT *
-             FROM BOOK
-             WHERE BOOK.TEXT_REVIEWS_COUNT IS NOT NULL
-             ORDER BY BOOK.TEXT_REVIEWS_COUNT DESC) result_set
-        WHERE ROWNUM <= 10
-      `,
-        {},
-        {
-          outFormat: oracledb.OBJECT,
-          maxRows: 10
         }
       );
     })
@@ -242,11 +194,93 @@ function triviaQuery(req, res) {
     });
 }
 
+function getAuthorBooks(req, res) {
+  let conn; // Declared here for scoping purposes.
+  console.log(req.params.author_id, typeof req.params.author_id);
+  oracledb
+    .getConnection()
+    .then(function (c) {
+      console.log("Connected to database");
+      conn = c;
+      return conn.execute(
+        `WITH BOOK_LIST AS (
+          SELECT BOOK_ID FROM AUTHOROF WHERE AUTHOR_ID = ${req.params.author_id}
+          )
+        SELECT * FROM BOOK2 NATURAL JOIN BOOK_LIST`,
+        {},
+        {
+          outFormat: oracledb.OBJECT,
+          maxRows: 20
+        }
+      );
+    })
+    .then(
+      function (result) {
+        console.log("Query executed");
+        res.json(result.rows);
+      },
+      function (err) {
+        console.log("Error occurred", err);
+      }
+    )
+    .then(function () {
+      if (conn) {
+        return conn.close();
+      }
+    })
+    .then(function () {
+      console.log("Connection closed");
+    })
+    .catch(function (err) {
+      console.log("Error closing connection", err);
+    });
+}
+
+function getBookReviews(req, res) {
+  let conn; // Declared here for scoping purposes.
+  console.log(req.params.book_id, typeof req.params.book_id);
+  oracledb
+    .getConnection()
+    .then(function (c) {
+      console.log("Connected to database");
+      conn = c;
+      return conn.execute(
+        `SELECT * FROM REVIEW WHERE BOOK_ID = '${req.params.book_id}'`,
+        {},
+        {
+          outFormat: oracledb.OBJECT,
+          maxRows: 3
+        }
+      );
+    })
+    .then(
+      function (result) {
+        console.log("Query executed");
+        res.json(result.rows);
+      },
+      function (err) {
+        console.log("Error occurred", err);
+      }
+    )
+    .then(function () {
+      if (conn) {
+        return conn.close();
+      }
+    })
+    .then(function () {
+      console.log("Connection closed");
+    })
+    .catch(function (err) {
+      console.log("Error closing connection", err);
+    });
+}
+
 // The exported functions, which can be accessed in index.js.
 module.exports = {
   randomBooks,
-  popularBooks,
   getAuthorInfo,
   scrapeAuthorInfo,
-  triviaQuery
+  triviaQuery,
+  getAuthorBooks,
+  getBookReviews
 };
