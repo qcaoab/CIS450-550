@@ -25,8 +25,7 @@ module.exports = {
     ORDER BY n_votes DESC
     ) x JOIN book on x.book_id=book.book_id
     WHERE ROWNUM<10             
-    
-    `,
+   `,
   [QUERY.MOST_CONSISTENT_AUTHOR]: `SELECT name, average_rating, rating_count
   FROM Author
   WHERE average_rating >4 and rating_count>50
@@ -91,12 +90,14 @@ JOIN Author ON Author.author_id=x.author_id
   JOIN AuthorOf ON Author.author_id = AuthorOf.author_id
   JOIN Genre ON AuthorOf.book_id = Genre.book_id
   GROUP BY Author.author_id, Genre.genre_name,Author.name)
-SELECT Author_Genre.name,count(*)
+SELECT Author_Genre.name,count(*) AS GENRE_NUM
 FROM Author_Genre 
+WHERE name <> 'Various'
 GROUP BY Author_Genre.author_id,Author_Genre.name
 HAVING COUNT(*) >= ALL
         (SELECT COUNT(*)
         FROM Author_Genre
+        WHERE name <> 'Various'
         GROUP BY author_id)
     `
 };
