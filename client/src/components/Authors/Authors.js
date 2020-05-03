@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { updateSearchQuery } from "../../redux/actions";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { SearchResultsCard } from "../Search/SearchResultCard";
-import { Row, Col, Jumbotron } from "reactstrap";
+import { Row, Col, Spinner } from "reactstrap";
 
 class _Authors extends React.Component {
   constructor() {
@@ -37,58 +37,73 @@ class _Authors extends React.Component {
         <div style={{ paddingLeft: 30, paddingTop: 20 }}>
           <div className="h2">Author</div>
           <br />
-          <Row>
-            <Col lg={3} style={{ borderRight: "3px solid beige" }}>
-              <div className="h2" style={{ textAlign: "center" }}>
-                {this.props.data.author_page_info
-                  ? this.props.data.author_page_info.NAME
-                  : "Author Name"}
-              </div>
-              <img
-                src={
-                  "https://images.gr-assets.com/authors/1394355831p8/6991433.jpg"
-                }
-                alt="author image"
-                style={{ width: "100%" }}
-              />
-            </Col>
-            <Col lg={9}>
-              <span class="h4">Statistics</span>
-              <br />
-              <div style={{ textAlign: "center", padding: 20 }}>
-                <span class="h5">
-                  Average Rating:{" "}
-                  {this.props.data.author_page_info.AVERAGE_RATING
-                    ? this.props.data.author_page_info.AVERAGE_RATING
-                    : "NA"}
-                  /5
-                </span>
-                <span className="mx-2">·</span>
-                <span class="h5">
-                  Ratings:{" "}
-                  {this.props.data.author_page_info.RATING_COUNT
-                    ? this.props.data.author_page_info.RATING_COUNT
-                    : "NA"}
-                </span>
-                <span className="mx-2">·</span>
-                <span class="h5">
-                  Reviews:{" "}
-                  {this.props.data.author_page_info.TEXT_REVIEW_COUNT
-                    ? this.props.data.author_page_info.TEXT_REVIEW_COUNT
-                    : "NA"}
-                </span>
-              </div>
-              <span class="h4">Books</span>
-              {this.props.data.author_books
-                ? this.props.data.author_books
-                    .slice(
-                      currentPage * this.pageSize,
-                      (currentPage + 1) * this.pageSize
-                    )
-                    .map((obj) => <SearchResultsCard book_info={obj} />)
-                : "No Books Found"}
-            </Col>
-          </Row>
+          {this.props.data.author_loading ? (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center"
+              }}
+            >
+              <Spinner animation="border" role="status">
+                <span className="sr-only">Loading...</span>
+              </Spinner>
+            </div>
+          ) : (
+            <Row>
+              <Col lg={3} style={{ borderRight: "3px solid beige" }}>
+                <div className="h2" style={{ textAlign: "center" }}>
+                  {this.props.data.author_page_info
+                    ? this.props.data.author_page_info.NAME
+                    : "Anonymous"}
+                </div>
+                <img
+                  src={
+                    this.props.data.author_page_info.IMAGE_URL
+                      ? this.props.data.author_page_info.IMAGE_URL
+                      : "https://s.gr-assets.com/assets/nophoto/user/u_200x266-e183445fd1a1b5cc7075bb1cf7043306.png"
+                  }
+                  alt="author image"
+                  style={{ width: "100%" }}
+                />
+              </Col>
+              <Col lg={9}>
+                <span class="h4">Statistics</span>
+                <br />
+                <div style={{ textAlign: "center", padding: 20 }}>
+                  <span class="h5">
+                    Average Rating:{" "}
+                    {this.props.data.author_page_info.AVERAGE_RATING
+                      ? this.props.data.author_page_info.AVERAGE_RATING
+                      : "NA"}
+                    /5
+                  </span>
+                  <span className="mx-2">·</span>
+                  <span class="h5">
+                    Ratings:{" "}
+                    {this.props.data.author_page_info.RATING_COUNT
+                      ? this.props.data.author_page_info.RATING_COUNT
+                      : "NA"}
+                  </span>
+                  <span className="mx-2">·</span>
+                  <span class="h5">
+                    Reviews:{" "}
+                    {this.props.data.author_page_info.TEXT_REVIEW_COUNT
+                      ? this.props.data.author_page_info.TEXT_REVIEW_COUNT
+                      : "NA"}
+                  </span>
+                </div>
+                <span class="h4">Books</span>
+                {this.props.data.author_books
+                  ? this.props.data.author_books
+                      .slice(
+                        currentPage * this.pageSize,
+                        (currentPage + 1) * this.pageSize
+                      )
+                      .map((obj) => <SearchResultsCard book_info={obj} />)
+                  : "No Books Found"}
+              </Col>
+            </Row>
+          )}
         </div>
       </div>
     );

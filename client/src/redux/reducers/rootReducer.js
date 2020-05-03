@@ -1,10 +1,18 @@
-import { BOOK, FAVORITE, QUERY, SEARCH, DISCOVER } from "../actionTypes";
+import {
+  BOOK,
+  FAVORITE,
+  QUERY,
+  SEARCH,
+  DISCOVER,
+  AUTHOR
+} from "../actionTypes";
 import {
   default_book_info,
   default_book_info2,
   default_book_info3,
   default_author_info1,
-  default_discover
+  default_discover,
+  default_good_book1
 } from "./placeholder";
 
 const initialState = {
@@ -16,7 +24,8 @@ const initialState = {
   favorites: {
     [default_book_info.BOOK_ID]: default_book_info,
     [default_book_info2.BOOK_ID]: default_book_info2,
-    [default_book_info3.BOOK_ID]: default_book_info3
+    [default_book_info3.BOOK_ID]: default_book_info3,
+    [default_good_book1.BOOK_ID]: default_good_book1
   },
   book_modal_visible: false,
   book_modal_info: default_book_info,
@@ -25,7 +34,8 @@ const initialState = {
   discover_books: default_discover,
   trivia_results: {
     [QUERY.POPULAR_BOOKS]: []
-  }
+  },
+  author_loading: false
 };
 
 export default function (state = initialState, action) {
@@ -97,7 +107,14 @@ export default function (state = initialState, action) {
       return {
         ...state,
         book_modal_info: action.book,
-        book_modal_visible: true
+        book_modal_visible: true,
+        author_loading: true
+      };
+    case AUTHOR.UPDATE:
+      return {
+        ...state,
+        author_loading: false,
+        author_page_info: action.json
       };
     case BOOK.SHOW_MODAL:
       return { ...state, book_modal_visible: true };

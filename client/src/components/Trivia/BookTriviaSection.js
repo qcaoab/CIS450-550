@@ -70,16 +70,23 @@ const _TriviaSection = (props) => {
   return (
     <React.Fragment>
       <div className="mb-4">
-        <h6>
-          {table_info.question}
+        <div
+          className="h6"
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between"
+          }}
+        >
+          <p style={{ margin: "auto", marginLeft: 0 }}>{table_info.question}</p>
           <Button
             onClick={() => props.dispatch(executeQuery(props.query))}
             color={"primary"}
-            style={{ marginLeft: 20 }}
           >
             Get Results
           </Button>
-        </h6>
+        </div>
+
         <Table responsive striped bordered hover>
           <thead>
             <tr>
