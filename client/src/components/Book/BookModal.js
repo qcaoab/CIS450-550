@@ -7,7 +7,8 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-  ModalFooter
+  ModalFooter,
+  Spinner
 } from "reactstrap";
 import { toggleBookModal, toggleFavorite } from "../../redux/actions";
 import { connect } from "react-redux";
@@ -43,14 +44,21 @@ const _BookModal = (props) => {
               />
             </Col>
             <Col lg={8}>
-              <span class="h5">{author_str}</span>
-              <span className="mx-2">·</span>
               <span class="h5">
-                {props.data.book_modal_info.NUM_PAGES} pages
+                {props.data.book_modal_info.NUM_PAGES
+                  ? props.data.book_modal_info.NUM_PAGES + " pages"
+                  : ""}
               </span>
-              <span className="mx-2">·</span>
+              {props.data.book_modal_info.NUM_PAGES && (
+                <span className="mx-2">·</span>
+              )}
               <span class="h5">
-                Rating {props.data.book_modal_info.AVERAGE_RATING}/5
+                Rating{" "}
+                {Math.round(
+                  (props.data.book_modal_info.AVERAGE_RATING + Number.EPSILON) *
+                    100
+                ) / 100}
+                /5
               </span>
               <span className="mx-2">·</span>
               <Button
@@ -69,15 +77,49 @@ const _BookModal = (props) => {
 
               <br />
               <br />
+              <span class="h5">Description</span>
+              <br />
+
               <div style={{ textAlign: "center" }}>
-                <span>{props.data.book_modal_info.DESCRIPTION}</span>
+                <span>
+                  {props.data.book_modal_info.DESCRIPTION
+                    ? props.data.book_modal_info.DESCRIPTION
+                    : "Description for this book is not avaiable."}
+                </span>
               </div>
-              <br />
-              <br />
               <div style={{ paddingTop: 20 }}>
-                <span class="h5">Author Profile</span>
-                <br />
-                <div style={{ textAlign: "left", paddingTop: 5 }}>{"TODO"}</div>
+                <div class="h5">Author Profile</div>
+                {props.data.author_loading ? (
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center"
+                    }}
+                  >
+                    <Spinner animation="border" role="status">
+                      <span className="sr-only">Loading...</span>
+                    </Spinner>
+                  </div>
+                ) : props.data.author_page_info.AUTHOR_ID ? (
+                  <div style={{ textAlign: "left", paddingTop: 20 }}>
+                    <span class="h6">
+                      Name: {props.data.author_page_info.NAME}
+                    </span>
+                    <br />
+                    {props.data.author_page_info.AUTHOR_DESC && (
+                      <React.Fragment>
+                        <div class="h6">Bio:</div>
+                        <div style={{ textAlign: "center" }}>
+                          {props.data.author_page_info.AUTHOR_DESC}
+                        </div>
+                      </React.Fragment>
+                    )}
+                  </div>
+                ) : (
+                  <div style={{ textAlign: "center", paddingTop: 5 }}>
+                    <span>Author Info Not Avaiable</span>
+                  </div>
+                )}
               </div>
               <div style={{ paddingTop: 20 }}>
                 <span class="h5">Reviews</span>
@@ -98,6 +140,10 @@ const _BookModal = (props) => {
             color="primary"
             onClick={props.toggleBookModal}
             href={"/authors"}
+            disabled={
+              props.data.author_loading ||
+              props.data.author_page_info.AUTHOR_ID == 0
+            }
           >
             Go to Author Page
           </Button>
@@ -110,7 +156,7 @@ const _BookModal = (props) => {
           </Button>
           <Button
             color="secondary"
-            href={`https://franklin.library.upenn.edu/bento?utf8=%E2%9C%93&q=${props.data.book_modal_info.TITLE}`}
+            href={`https://www.google.com/search?q=${props.data.book_modal_info.TITLE}`}
             target="_blank"
           >
             Find On Google

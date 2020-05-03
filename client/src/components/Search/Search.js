@@ -43,71 +43,67 @@ class _Search extends React.Component {
     const { currentPage } = this.state;
 
     return (
-      <div className="Search">
-        <PageNavbar active="search" />
-        <div className="container search-container">
-          <Jumbotron style={{ backgroundColor: "#FFFFF3", paddingTop: 30 }}>
-            <Row>
-              <Col lg={2} style={{ borderRight: "3px solid beige" }}>
-                <div className="h2">Search</div>
-              </Col>
-              <Col lg={10}>
-                <div style={{ paddingTop: 5 }}>
-                  <SearchResultsHeader />
-                </div>
+      <div>
+        <div style={{ paddingLeft: 30, paddingTop: 20 }}>
+          <div className="h2">Search</div>
+          <br />
 
-                <div className="header-container">
-                  {this.props.data.search_results
-                    ? this.props.data.search_results
-                        .slice(
-                          currentPage * this.pageSize,
-                          (currentPage + 1) * this.pageSize
-                        )
-                        .map((obj) => <SearchResultsCard book_info={obj} />)
-                    : "No Books Found"}
-                </div>
-                <div
-                  className="pagination-wrapper"
-                  style={{
-                    justifyContent: "center",
-                    display: "flex",
-                    paddingTop: 10
-                  }}
-                >
-                  <Pagination aria-label="Page navigation example">
-                    <PaginationItem disabled={currentPage <= 0}>
+          <Row>
+            {/* <Col lg={2} style={{ borderRight: "3px solid beige" }}></Col> */}
+            <Col lg={10}>
+              <div style={{ paddingTop: 5 }}>
+                <SearchResultsHeader />
+              </div>
+
+              <div className="header-container">
+                {this.props.data.search_results
+                  ? this.props.data.search_results
+                      .slice(
+                        currentPage * this.pageSize,
+                        (currentPage + 1) * this.pageSize
+                      )
+                      .map((obj) => <SearchResultsCard book_info={obj} />)
+                  : "No Books Found"}
+              </div>
+              <div
+                className="pagination-wrapper"
+                style={{
+                  justifyContent: "center",
+                  display: "flex",
+                  paddingTop: 10
+                }}
+              >
+                <Pagination aria-label="Page navigation example">
+                  <PaginationItem disabled={currentPage <= 0}>
+                    <PaginationLink
+                      onClick={(e) => this.handleClick(e, currentPage - 1)}
+                      previous
+                      href="#"
+                    />
+                  </PaginationItem>
+
+                  {[...Array(this.pagesCount)].map((page, i) => (
+                    <PaginationItem active={i === currentPage} key={i}>
                       <PaginationLink
-                        onClick={(e) => this.handleClick(e, currentPage - 1)}
-                        previous
+                        onClick={(e) => this.handleClick(e, i)}
                         href="#"
-                      />
+                      >
+                        {i + 1}
+                      </PaginationLink>
                     </PaginationItem>
+                  ))}
 
-                    {[...Array(this.pagesCount)].map((page, i) => (
-                      <PaginationItem active={i === currentPage} key={i}>
-                        <PaginationLink
-                          onClick={(e) => this.handleClick(e, i)}
-                          href="#"
-                        >
-                          {i + 1}
-                        </PaginationLink>
-                      </PaginationItem>
-                    ))}
-
-                    <PaginationItem
-                      disabled={currentPage >= this.pagesCount - 1}
-                    >
-                      <PaginationLink
-                        onClick={(e) => this.handleClick(e, currentPage + 1)}
-                        next
-                        href="#"
-                      />
-                    </PaginationItem>
-                  </Pagination>
-                </div>
-              </Col>
-            </Row>
-          </Jumbotron>
+                  <PaginationItem disabled={currentPage >= this.pagesCount - 1}>
+                    <PaginationLink
+                      onClick={(e) => this.handleClick(e, currentPage + 1)}
+                      next
+                      href="#"
+                    />
+                  </PaginationItem>
+                </Pagination>
+              </div>
+            </Col>
+          </Row>
         </div>
       </div>
     );

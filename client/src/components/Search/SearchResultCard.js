@@ -24,11 +24,20 @@ const _SearchResultsCard = (props) => (
             </a>
             <br />
             <div className="mb-2">
-              {props.book_info.AUTHOR ? props.book_info.AUTHOR : "Book Author"}
-              <span className="mx-2">·</span>
-              <span>{props.book_info.PUBLICATION_YEAR}</span>
-              <span className="mx-2">·</span>
-              Rating: {props.book_info.AVERAGE_RATING}/5
+              {/* {props.book_info.AUTHOR ? props.book_info.AUTHOR : "Book Author"}
+              <span className="mx-2">·</span> */}
+              {props.book_info.PUBLICATION_YEAR && (
+                <span>{props.book_info.PUBLICATION_YEAR}</span>
+              )}
+              {props.book_info.PUBLICATION_YEAR && (
+                <span className="mx-2">·</span>
+              )}
+              {props.book_info.AVERAGE_RATING &&
+                `Rating: ${
+                  Math.round(
+                    (props.book_info.AVERAGE_RATING + Number.EPSILON) * 100
+                  ) / 100
+                }/5`}
               {/* <span className="mx-2">·</span> */}
             </div>
             <p className="mb-0">

@@ -12,21 +12,23 @@ class _Discover extends React.Component {
   }
   render() {
     return (
-      <div className="Dashboard">
-        <PageNavbar active="discover" />
-
-        <div
-          style={{
-            backgroundImage: `url(${Background})`,
-            backgroundSize: "100%",
-            height: 600,
-            width: 1100,
-            marginTop: 70
-          }}
-          className="container books-container"
-        >
-          <BookCarousel />
-          <br></br>
+      <div>
+        <div style={{ paddingLeft: 20, paddingTop: 20 }}>
+          <div className="h2" style={{ paddingLeft: 10 }}>
+            Discover
+          </div>
+          <div
+            style={{
+              backgroundImage: `url(${Background})`,
+              backgroundSize: "100%",
+              height: 600,
+              width: 1100
+            }}
+            className="container books-container"
+          >
+            <BookCarousel />
+            <br></br>
+          </div>
         </div>
       </div>
     );

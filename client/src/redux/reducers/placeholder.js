@@ -89,13 +89,47 @@ export const default_book_info3 = {
   TEXT_REVIEWS_COUNT: 1,
   TITLE: "Koine Greek New Testament"
 };
-
+export const default_good_book1 = {
+  AVERAGE_RATING: 4.33,
+  BOOK_ID: "33394837",
+  COUNTRY_CODE: "US",
+  DESCRIPTION: null,
+  FORMAT: null,
+  IMAGE_URL: "https://images.gr-assets.com/books/1493114742m/33394837.jpg",
+  ISBN: null,
+  NUM_PAGES: 318,
+  PUBLICATION_YEAR: null,
+  PUBLISHER: null,
+  TEXT_REVIEWS_COUNT: 60,
+  TITLE: "The House of Memory (Pluto's Snitch #2)"
+};
 export const default_author_info1 = {
-  AVERAGE_RATING: 3.9,
-  AUTHOR_ID: 6991433,
-  TEXT_REVIEW_COUNT: 15,
-  NAME: "Jurgis Gimberis",
-  RATING_COUNT: 231
+  AUTHOR_ID: 242185,
+  NAME: "Carolyn Haines",
+  RATING_COUNT: 42549,
+  TEXT_REVIEW_COUNT: 2906,
+  AVERAGE_RATING: 3.95,
+  IMAGE_URL: "https://images.gr-assets.com/authors/1526356694p5/242185.jpg",
+  AUTHOR_DESC:
+    'Carolyn Haines is the USA Today bestselling author of over 70 books. In 2020, she was inducted into the Alabama Writers Hall of Fame. She was the recipient of the Lifetime Achievement Award from the Alabama Library Association, the Harper Lee Award for Distinguished Writing, the Richard Wright Award for Literary Excellence, as well as the "Best Amateur Sleuth" award by Romantic Times. Born and raised in Mississippi, she now lives in Alabama on a farm with more dogs, cats, and horses than she can possibly keep track of.',
+  INFO: {
+    DATA_TITLE: [
+      "Website",
+      "Twitter",
+      "Genre",
+      "Influences",
+      "Member Since",
+      "URL"
+    ],
+    DATA_ITEM: [
+      "http://www.carolynhaines.com",
+      "DeltaGalCarolyn",
+      "Mystery & Thrillers, Romance, Horror",
+      "Louise Penny, James Lee Burke, Carolyn Keene, Edgar Allan Poe, Sir\n  Louise Penny, James Lee Burke, Carolyn Keene, Edgar Allan Poe, Sir Author Conan Doyle, Leon Uris, Mary Stewart, Daphne du Maurier, Barbara Michaels, Flannery O'Connor, Ritter Ames, Miranda James, Dennis Lehane, Barbara Kingsolver.\n  ...more",
+      "February 2009",
+      "https://www.goodreads.com/carolynhaines"
+    ]
+  }
 };
 
 export const default_discover = [
