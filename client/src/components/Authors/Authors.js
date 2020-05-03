@@ -123,20 +123,20 @@ class _Authors extends React.Component {
                 )}
                 <br />
                 <div class="h4">Statistics</div>
-                <div style={{ textAlign: "center", padding: 20 }}>
-                  <span class="h5">
+                <div style={{ textAlign: "center" }}>
+                  <span>
                     Average Rating:{" "}
                     {author_info.AVERAGE_RATING
                       ? author_info.AVERAGE_RATING + "/5"
                       : "NA"}
                   </span>
                   <span className="mx-2">·</span>
-                  <span class="h5">
+                  <span>
                     Ratings:{" "}
                     {author_info.RATING_COUNT ? author_info.RATING_COUNT : "NA"}
                   </span>
                   <span className="mx-2">·</span>
-                  <span class="h5">
+                  <span>
                     Reviews:{" "}
                     {author_info.TEXT_REVIEW_COUNT
                       ? author_info.TEXT_REVIEW_COUNT
