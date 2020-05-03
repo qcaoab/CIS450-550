@@ -25,8 +25,8 @@ module.exports = {
     ORDER BY n_votes DESC
     ) x JOIN book on x.book_id=book.book_id
     WHERE ROWNUM<10             
-    )
-    WHERE ROWNUM<10`,
+    
+    `,
   [QUERY.MOST_CONSISTENT_AUTHOR]: `SELECT name, average_rating, rating_count
   FROM Author
   WHERE average_rating =5 and rating_count>50
