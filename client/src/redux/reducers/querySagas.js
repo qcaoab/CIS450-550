@@ -78,36 +78,7 @@ function* triviaPopularBooks() {
 
 function* executeQuerySaga({ query }) {
   console.log("Fetching");
-  let url = "http://localhost:8081";
-  switch (query) {
-    case QUERY.POPULAR_BOOKS:
-      url = url + "/popularBooks";
-      break;
-    case QUERY.BEST_REVIEWS:
-      url = url + "/popularBooks";
-      break;
-    case QUERY.MOST_CONSISTENT_AUTHOR:
-      url = url + "/popularBooks";
-      break;
-    case QUERY.HIGHEST_RATED_BOOKS_PER_GENRE_YEAR:
-      url = url + "/popularBooks";
-      break;
-    case QUERY.MOST_CONTROVERSIAL_BOOKS:
-      url = url + "/popularBooks";
-      break;
-    case QUERY.ONE_HIT_WONDER:
-      url = url + "/popularBooks";
-      break;
-    case QUERY.PROLIFIC_AUTHOR:
-      url = url + "/popularBooks";
-      break;
-    case QUERY.CROSS_GENRE_AUTHOR:
-      url = url + "/popularBooks";
-      break;
-    case QUERY.MOST_GENRE_AUTHOR:
-      url = url + "/popularBooks";
-      break;
-  }
+  let url = `http://localhost:8081/triviaQuery/${query}`;
   const json = yield fetch(url, {
     method: "GET"
   }).then(

@@ -20,6 +20,7 @@ app.get("/randomBooks/:num", routes.randomBooks);
 app.get("/popularBooks", routes.popularBooks);
 app.get("/getAuthorInfo/:book_id", routes.getAuthorInfo);
 app.get("/scrapeAuthorInfo/:author_id", routes.scrapeAuthorInfo);
+app.get("/triviaQuery/:triviaQuery", routes.triviaQuery);
 
 app.listen(8081, () => {
   console.log(`Server listening on PORT 8081`);

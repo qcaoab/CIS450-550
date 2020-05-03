@@ -87,8 +87,6 @@ const _BookModal = (props) => {
                     : "Description for this book is not avaiable."}
                 </span>
               </div>
-              <br />
-              <br />
               <div style={{ paddingTop: 20 }}>
                 <div class="h5">Author Profile</div>
                 {props.data.author_loading ? (
@@ -118,8 +116,8 @@ const _BookModal = (props) => {
                     )}
                   </div>
                 ) : (
-                  <div style={{ textAlign: "left", paddingTop: 20 }}>
-                    <span class="h5">Author Info Not Avaiable</span>
+                  <div style={{ textAlign: "center", paddingTop: 5 }}>
+                    <span>Author Info Not Avaiable</span>
                   </div>
                 )}
               </div>
@@ -142,6 +140,10 @@ const _BookModal = (props) => {
             color="primary"
             onClick={props.toggleBookModal}
             href={"/authors"}
+            disabled={
+              props.data.author_loading ||
+              props.data.author_page_info.AUTHOR_ID == 0
+            }
           >
             Go to Author Page
           </Button>
@@ -154,7 +156,7 @@ const _BookModal = (props) => {
           </Button>
           <Button
             color="secondary"
-            href={`https://franklin.library.upenn.edu/bento?utf8=%E2%9C%93&q=${props.data.book_modal_info.TITLE}`}
+            href={`https://www.google.com/search?q=${props.data.book_modal_info.TITLE}`}
             target="_blank"
           >
             Find On Google

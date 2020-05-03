@@ -2,6 +2,7 @@ var config = require("./db-config.js");
 const oracledb = require("oracledb");
 const axios = require("axios");
 const cheerio = require("cheerio");
+const TriviaQueryString = require("./triviaQueries.js");
 
 async function scrapeAuthor(author_id) {
   const html = await axios.get(
@@ -202,10 +203,50 @@ function scrapeAuthorInfo(req, res) {
   scrapeAuthor(author_id).then((x) => res.json(x));
 }
 
+function triviaQuery(req, res) {
+  let conn; // Declared here for scoping purposes.
+  console.log(req.params.triviaQuery, typeof req.params.triviaQuery);
+  oracledb
+    .getConnection()
+    .then(function (c) {
+      console.log("Connected to database");
+      conn = c;
+      return conn.execute(
+        TriviaQueryString[req.params.triviaQuery],
+        {},
+        {
+          outFormat: oracledb.OBJECT,
+          maxRows: 20
+        }
+      );
+    })
+    .then(
+      function (result) {
+        console.log("Query executed");
+        res.json(result.rows);
+      },
+      function (err) {
+        console.log("Error occurred", err);
+      }
+    )
+    .then(function () {
+      if (conn) {
+        return conn.close();
+      }
+    })
+    .then(function () {
+      console.log("Connection closed");
+    })
+    .catch(function (err) {
+      console.log("Error closing connection", err);
+    });
+}
+
 // The exported functions, which can be accessed in index.js.
 module.exports = {
   randomBooks,
   popularBooks,
   getAuthorInfo,
-  scrapeAuthorInfo
+  scrapeAuthorInfo,
+  triviaQuery
 };
