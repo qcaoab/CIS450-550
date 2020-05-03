@@ -158,12 +158,13 @@ function bestReviews(req, res) {
       console.log("Connected to database");
       conn = c;
       return conn.execute(
-        `SELECT * FROM(
-          SELECT review_text
+        `SELECT book.title, review_text, n_votes FROM
+        (
+          SELECT book_id, n_votes, review_text
           FROM Review
           ORDER BY n_votes DESC
-          )
-          WHERE ROWNUM<10;          
+          ) x JOIN book on x.book_id=book.book_id
+          WHERE ROWNUM<10             
       `,
         {},
         {
@@ -207,10 +208,10 @@ function bestAuthors(req, res) {
       console.log("Connected to database");
       conn = c;
       return conn.execute(
-        `SELECT name
+        `SELECT name, average_rating, rating_count
         FROM Author
         WHERE average_rating =5 and rating_count>50
-        ORDER BY average_rating DESC;                
+        ORDER BY average_rating DESC                
       `,
         {},
         {
@@ -256,18 +257,18 @@ function bestBooks(req, res) {
       conn = c;
       return conn.execute(
       `WITH Book_Rating(book_id, title, avg_rating) AS
-        (SELECT Book.book_id, Book.title, AVG(Review.rating)
-         FROM Book 
-          JOIN Review ON Book.book_id = Review.book_id
-         GROUP BY Book.book_id, Book.title)
-        SELECT FLOOR(Book.publication_year/10)*10 AS decade, Genre.genre_name, Book_Rating.title
-         FROM Book, Book_Rating
-          JOIN Genre ON Book_Rating.book_id = Genre.book_id
-          WHERE avg_rating >= ALL
-            (SELECT avg_rating
-             FROM Book_Rating)
-             and Book.book_id=Book_Rating.book_id
-       GROUP BY FLOOR(Book.publication_year/10), Genre.genre_name, Book_Rating.title;               
+      (SELECT Book.book_id, Book.title, AVG(Review.rating)
+       FROM Book 
+        JOIN Review ON Book.book_id = Review.book_id
+       GROUP BY Book.book_id, Book.title)
+      SELECT FLOOR(Book.publication_year/10)*10 AS decade, Genre.genre_name, Book_Rating.title, Book_Rating.avg_rating
+       FROM Book, Book_Rating
+        JOIN Genre ON Book_Rating.book_id = Genre.book_id
+        WHERE avg_rating >= ALL
+          (SELECT avg_rating
+           FROM Book_Rating)
+           and Book.book_id=Book_Rating.book_id
+     GROUP BY FLOOR(Book.publication_year/10), Genre.genre_name, Book_Rating.title,Book_Rating.avg_rating      
       `,
         {},
         {
@@ -314,8 +315,7 @@ function controBooks(req, res) {
       `SELECT title, STDDEV(rating) AS stdev
       FROM Book JOIN Review ON Book.book_id = Review.book_id 
       GROUP BY Book.book_id, title
-      ORDER BY STDDEV(rating) DESC
-      ;               
+      ORDER BY STDDEV(rating) DESC              
       `,
         {},
         {
@@ -365,7 +365,7 @@ function onehit(req, res) {
       WHERE Book.average_rating > Author.average_rating
       GROUP BY Author.author_id, name, title
       HAVING COUNT(*) >= 1    
-      ;               
+                    
       `,
         {},
         {
@@ -415,13 +415,12 @@ function prolificAuthors(req, res) {
         JOIN AuthorOf ON Author.author_id = AuthorOf.author_id
         JOIN Genre ON AuthorOf.book_id = Genre.book_id
         GROUP BY Author.author_id, genre_name, name )
-      SELECT name, genre_name
+      SELECT name, genre_name, num
       FROM Author_Genre G1
       WHERE num >= ALL
           (SELECT num
            FROM Author_Genre G2
-           WHERE G1.genre_name = G2.genre_name)
-      ;               
+           WHERE G1.genre_name = G2.genre_name)              
       `,
         {},
         {
@@ -466,19 +465,18 @@ function mostGenreAuthors(req, res) {
       conn = c;
       return conn.execute(
       `WITH Author_Genre(author_id, genre_name,name) AS
-        (SELECT Author.author_id, Genre.genre_name, Author.name
-        FROM Author
-        JOIN AuthorOf ON Author.author_id = AuthorOf.author_id
-        JOIN Genre ON AuthorOf.book_id = Genre.book_id
-        GROUP BY Author.author_id, Genre.genre_name,Author.name)
-      SELECT author_id,Author_Genre.name,count(*)
-      FROM Author_Genre 
-      GROUP BY Author_Genre.name, Author_Genre.author_id
-      HAVING COUNT(*) >= ALL
-              (SELECT COUNT(*)
-              FROM Author_Genre
-              GROUP BY author_id)
-      ;               
+      (SELECT Author.author_id, Genre.genre_name, Author.name
+      FROM Author
+      JOIN AuthorOf ON Author.author_id = AuthorOf.author_id
+      JOIN Genre ON AuthorOf.book_id = Genre.book_id
+      GROUP BY Author.author_id, Genre.genre_name,Author.name)
+    SELECT Author_Genre.name,count(*)
+    FROM Author_Genre 
+    GROUP BY Author_Genre.author_id,Author_Genre.name
+    HAVING COUNT(*) >= ALL
+            (SELECT COUNT(*)
+            FROM Author_Genre
+            GROUP BY author_id)
       `,
         {},
         {
@@ -523,17 +521,18 @@ function multiGenreAuthors(req, res) {
       console.log("Connected to database");
       conn = c;
       return conn.execute(
-      `WITH Highly_Rated_Books(book_id) AS
-        (SELECT book.book_id
-        FROM Book  
-        WHERE average_rating>4)
-      SELECT author_id 
+      `WITH Highly_Rated_Books(book_id, rating) AS
+      (SELECT book.book_id, average_rating
+      FROM Book  
+      WHERE average_rating>4)
+    SELECT Author.name FROM(
+      SELECT Authorof.author_id
       FROM Highly_Rated_Books JOIN AuthorOf ON Highly_Rated_Books.book_id = AuthorOf.book_id
-      JOIN Genre ON Highly_Rated_Books.book_id = Genre.book_id
-      GROUP BY author_id, genre_name
-      HAVING COUNT(*) >=3;
-  
-      ;               
+      JOIN bookgenre ON Highly_Rated_Books.book_id = bookgenre.book_id 
+      GROUP BY Authorof.author_id
+        HAVING COUNT(*) >=3  
+    ) x 
+    JOIN Author ON Author.author_id=x.author_id                            
       `,
         {},
         {
