@@ -33,8 +33,8 @@ module.exports = {
 `,
   [QUERY.HIGHEST_RATED_BOOKS_PER_GENRE_YEAR]: `WITH 
   temp0 (book_id, genre_name, text_reviews_count, average_rating, title, publication_year) AS
-      (SELECT Book.book_id, genre_name, text_reviews_count, average_rating, title, book.publication_year
-      FROM Book JOIN Genre on Book.book_id=Genre.book_id),
+      (SELECT Book.book_id, genre, text_reviews_count, average_rating, title, book.publication_year
+      FROM Book JOIN BookGenre on Book.book_id=BookGenre.book_id),
   temp1 (decade, genre_name, rating) AS
       (SELECT FLOOR(publication_year/10)*10 AS decade, genre_name, MAX(average_rating) as rating
       FROM temp0
@@ -61,18 +61,19 @@ module.exports = {
   GROUP BY Author.author_id, name, title
   HAVING COUNT(*) = 1
   `,
-  [QUERY.PROLIFIC_AUTHOR]: `WITH Author_Genre(name, genre_name, num) AS
-  (SELECT name, genre_name, COUNT(*)
-  FROM Author
-  JOIN AuthorOf ON Author.author_id = AuthorOf.author_id
-  JOIN Genre ON AuthorOf.book_id = Genre.book_id
-  GROUP BY Author.author_id, genre_name, name )
-SELECT name, genre_name, num
-FROM Author_Genre G1
-WHERE num >= ALL
-    (SELECT num
-     FROM Author_Genre G2
-     WHERE G1.genre_name = G2.genre_name)       
+  [QUERY.PROLIFIC_AUTHOR]: `WITH Author_Genre(author_id, genre, num) AS
+  (SELECT author_id, genre, COUNT(authorof.book_id)
+  FROM AuthorOf 
+  JOIN BookGenre ON AuthorOf.book_id = BookGenre.book_id
+  GROUP BY author_id, genre ),
+  a (author_id, genre, num, rn) AS(
+  SELECT author_id, genre, num,ROW_NUMBER() OVER(PARTITION BY genre ORDER BY num DESC) 
+  FROM Author_Genre
+  ORDER BY num DESC
+  )
+SELECT genre as genre_name, Author.name,  num
+FROM a JOIN Author on a.author_id=Author.author_id
+WHERE rn=1
 `,
   [QUERY.CROSS_GENRE_AUTHOR]: `WITH Highly_Rated_Books(book_id, rating) AS
   (SELECT book.book_id, average_rating
@@ -87,20 +88,14 @@ SELECT Author.name FROM(
 ) x 
 JOIN Author ON Author.author_id=x.author_id   
 `,
-  [QUERY.MOST_GENRE_AUTHOR]: `WITH Author_Genre(author_id, genre_name,name) AS
-  (SELECT Author.author_id, Genre.genre_name, Author.name
-  FROM Author
-  JOIN AuthorOf ON Author.author_id = AuthorOf.author_id
-  JOIN Genre ON AuthorOf.book_id = Genre.book_id
-  GROUP BY Author.author_id, Genre.genre_name,Author.name)
-SELECT Author_Genre.name,count(*) AS GENRE_NUM
-FROM Author_Genre 
-WHERE name <> 'Various'
-GROUP BY Author_Genre.author_id,Author_Genre.name
-HAVING COUNT(*) >= ALL
-        (SELECT COUNT(*)
-        FROM Author_Genre
-        WHERE name <> 'Various'
-        GROUP BY author_id)
+  [QUERY.MOST_GENRE_AUTHOR]: `
+  WITH Author_Genre(author_id,num) AS
+    (SELECT AuthorOf.author_id,  count(DISTINCT genre)
+    FROM AuthorOf JOIN BookGenre ON AuthorOf.book_id = BookGenre.book_id
+    GROUP BY AuthorOf.author_id)
+  SELECT a.name,num AS GENRE_NUM
+  FROM Author_Genre JOIN (SELECT name, author_id from Author WHERE name <> 'Various' AND name <>'Anonymous') a 
+  ON a.author_id = Author_Genre.author_id
+  WHERE num>= ALL(SELECT num FROM Author_Genre)
     `
 };
