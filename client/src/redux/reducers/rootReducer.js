@@ -12,7 +12,8 @@ import {
   default_book_info3,
   default_author_info1,
   default_discover,
-  default_good_book1
+  default_good_book1,
+  author_demo
 } from "./placeholder";
 
 const initialState = {
@@ -22,10 +23,10 @@ const initialState = {
   search_filters: null,
   search_query: "",
   favorites: {
-    [default_book_info.BOOK_ID]: default_book_info,
     [default_book_info2.BOOK_ID]: default_book_info2,
     [default_book_info3.BOOK_ID]: default_book_info3,
-    [default_good_book1.BOOK_ID]: default_good_book1
+    [default_good_book1.BOOK_ID]: default_good_book1,
+    [author_demo.BOOK_ID]: author_demo
   },
   book_modal_visible: false,
   book_modal_info: default_book_info,

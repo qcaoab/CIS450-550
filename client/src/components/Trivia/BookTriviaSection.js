@@ -27,7 +27,8 @@ const trivia_tables = {
   },
   [QUERY.HIGHEST_RATED_BOOKS_PER_GENRE_YEAR]: {
     ranking: false,
-    question: "4. What are the highest-rated books of each genre in each year?",
+    question:
+      "4. What are the highest-rated books of each genre in each decade?",
     headings: ["Decade", "Genre", "Title", "Rating"],
     cols: ["DECADE", "GENRE_NAME", "TITLE", "RATING"]
   },
@@ -111,6 +112,19 @@ const _TriviaSection = (props) => {
                               alt=""
                               style={{ height: "100%" }}
                             />
+                          </td>
+                        );
+                      case "Rating":
+                      case "Standard Deviation of Ratings":
+                        return (
+                          <td>
+                            {obj[table_info.cols[col_idx]]
+                              ? Math.round(
+                                  (obj[table_info.cols[col_idx]] +
+                                    Number.EPSILON) *
+                                    1000
+                                ) / 1000
+                              : "N/A"}
                           </td>
                         );
                       default:

@@ -498,3 +498,13 @@ export const default_discover = [
     PUBLISHER: "Rose and Star Press"
   }
 ];
+export const author_demo = {
+  AVERAGE_RATING: 4.01,
+  BOOK_ID: "175242",
+  DESCRIPTION:
+    'Hailed internationally as a page-turner in a league with the fiction of Thomas Harris, this lyrical and terrifying bestseller is the stunning achievement of an "extravagantly gifted" (Kirkus Reviews)new novelist. John Connolly superbly taps into the tortured mind and gritty world of former NYPD detective Charlie "Bird" Parker, tormented by the brutal, unsolved murders of his wife and young daughter. Driven by visions of the dead, Parker tracks a serial killer from New York City to the American South, and finds his buried instincts -- for love, survival, and, ultimately, for killing -- awakening as he confronts a monster beyond imagining...',
+  IMAGE_URL: "https://images.gr-assets.com/books/1393929687m/175242.jpg",
+  NUM_PAGES: 467,
+  PUBLICATION_YEAR: "2000",
+  TITLE: "Every Dead Thing (Charlie Parker, #1)"
+};
