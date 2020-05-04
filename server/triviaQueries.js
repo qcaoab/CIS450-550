@@ -31,19 +31,22 @@ module.exports = {
   WHERE average_rating >4 and rating_count>50
   ORDER BY average_rating DESC 
 `,
-  [QUERY.HIGHEST_RATED_BOOKS_PER_GENRE_YEAR]: `WITH Book_Rating(book_id, title, avg_rating) AS
-  (SELECT Book.book_id, Book.title, AVG(Review.rating)
-   FROM Book 
-    JOIN Review ON Book.book_id = Review.book_id
-   GROUP BY Book.book_id, Book.title)
-  SELECT FLOOR(Book.publication_year/10)*10 AS decade, Genre.genre_name, Book_Rating.title, 
-   FROM Book, Book_Rating
-    JOIN Genre ON Book_Rating.book_id = Genre.book_id
-    WHERE avg_rating >= ALL
-      (SELECT avg_rating
-       FROM Book_Rating)
-       and Book.book_id=Book_Rating.book_id
- GROUP BY FLOOR(Book.publication_year/10), Genre.genre_name, Book_Rating.title     
+  [QUERY.HIGHEST_RATED_BOOKS_PER_GENRE_YEAR]: `WITH 
+  temp0 (book_id, genre_name, text_reviews_count, average_rating, title, publication_year) AS
+      (SELECT Book.book_id, genre_name, text_reviews_count, average_rating, title, book.publication_year
+      FROM Book JOIN Genre on Book.book_id=Genre.book_id),
+  temp1 (decade, genre_name, rating) AS
+      (SELECT FLOOR(publication_year/10)*10 AS decade, genre_name, MAX(average_rating) as rating
+      FROM temp0
+      GROUP BY FLOOR(publication_year/10)*10, genre_name),
+  temp2 (decade, genre_name, title, rating, rn) AS(
+      SELECT  temp1.decade, temp1.genre_name, temp0.title, temp1.rating,
+      ROW_NUMBER() OVER(PARTITION BY temp1.decade,temp1.genre_name ORDER BY temp0.text_reviews_count DESC)
+      FROM temp1, temp0
+      WHERE FLOOR(temp0.publication_year/10)*10=temp1.decade AND temp1.rating=temp0.average_rating 
+      AND temp0.genre_name=temp1.genre_name AND temp1.decade>1000
+      ORDER BY temp1.decade,text_reviews_count )
+  SELECT * from temp2 where temp2.rn=1
 `,
   [QUERY.MOST_CONTROVERSIAL_BOOKS]: `SELECT title, STDDEV(rating) AS stdev
   FROM Book JOIN Review ON Book.book_id = Review.book_id 
