@@ -126,9 +126,10 @@ class _Authors extends React.Component {
                 <div style={{ textAlign: "center" }}>
                   <span>
                     Average Rating:{" "}
-                    {author_info.AVERAGE_RATING
-                      ? author_info.AVERAGE_RATING + "/5"
-                      : "NA"}
+                    {Math.round(
+                      (author_info.AVERAGE_RATING + Number.EPSILON) * 100
+                    ) / 100}
+                    /5
                   </span>
                   <span className="mx-2">·</span>
                   <span>
