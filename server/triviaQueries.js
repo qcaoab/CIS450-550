@@ -61,19 +61,19 @@ module.exports = {
   GROUP BY Author.author_id, name, title
   HAVING COUNT(*) = 1
   `,
-  [QUERY.PROLIFIC_AUTHOR]: `WITH Author_Genre(author_id, genre, num) AS
-  (SELECT author_id, genre, COUNT(authorof.book_id)
+  [QUERY.PROLIFIC_AUTHOR]: `WITH Author_Genre( genre_name, author_id, num) AS
+  (SELECT  BookGenre.genre, Authorof.author_id, COUNT(*) as num
   FROM AuthorOf 
   JOIN BookGenre ON AuthorOf.book_id = BookGenre.book_id
-  GROUP BY author_id, genre ),
-  a (author_id, genre, num, rn) AS(
-  SELECT author_id, genre, num,ROW_NUMBER() OVER(PARTITION BY genre ORDER BY num DESC) 
-  FROM Author_Genre
-  ORDER BY num DESC
-  )
-SELECT genre as genre_name, Author.name,  num
-FROM a JOIN Author on a.author_id=Author.author_id
-WHERE rn=1
+  GROUP BY genre,AuthorOf.author_id )
+  
+    SELECT G1.genre_name ,author.name,  G1.num 
+    FROM Author_Genre G1 JOIN Author on Author.author_id=G1.author_id
+    WHERE G1.num >= 
+        (SELECT max(G2.num)
+         FROM Author_Genre G2
+         WHERE G1.genre_name = G2.genre_name) 
+    ORDER BY G1.num DESC
 `,
   [QUERY.CROSS_GENRE_AUTHOR]: `WITH Highly_Rated_Books(book_id, rating) AS
   (SELECT book.book_id, average_rating
